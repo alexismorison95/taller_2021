@@ -4,7 +4,6 @@ import { Pool, QueryResult } from "pg";
 
 /**
  * Función para mostrar un error por consola y enviarla al cliente.
- * Esta funcion se llama en la parte Catch de los Try Catch.
  * @param e 
  * @param res 
  */

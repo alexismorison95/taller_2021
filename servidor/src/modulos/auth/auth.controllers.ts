@@ -12,7 +12,7 @@ export async function Login(req: Request, res: Response) {
 
         // Consulta
         const cQuery: string = 'select id, nombrereal, nombreusuario, tipousuario from usuario where nombreusuario = $1 AND contrasenia = $2;';
-        const cParams = [ req.body.name, req.body.password ];
+        const cParams: string[] = [ req.body.name, req.body.password ];
 
         let mDbResponse: QueryResult<AuthenticatedUser> = await db.query( cQuery, cParams );
 
