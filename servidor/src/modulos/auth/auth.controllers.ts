@@ -11,30 +11,22 @@ export async function Login(req: Request, res: Response) {
         const db = ClientDB('login_user');
 
         // Consulta
-        const cQuery: string = 'select * from usuario where nombreusuario = $1 AND contrasenia = $2;';
+        const cQuery: string = 'select id, nombrereal, nombreusuario, tipousuario from usuario where nombreusuario = $1 AND contrasenia = $2;';
         const cParams = [ req.body.name, req.body.password ];
 
-        let mDbResponse: QueryResult<AuthenticatedUser> = await db.query( cQuery,cParams );
+        let mDbResponse: QueryResult<AuthenticatedUser> = await db.query( cQuery, cParams );
 
         // Si trajo un usuario carga su id y rol en la sesion y envia al cliente el usuario
         if (mDbResponse.rows[0]) {
-
-            // Transformo la respuesta para no enviar la contraseña
-            const cAuthenticatedUser: AuthenticatedUser =  {
-                id: mDbResponse.rows[0].id,
-                nombrereal: mDbResponse.rows[0].nombrereal,
-                nombreusuario: mDbResponse.rows[0].nombreusuario,
-                tipousuario: mDbResponse.rows[0].tipousuario 
-            };
             
             // Guardo en la sesion los datos del usuario
-            req.session['id_usuario'] = cAuthenticatedUser.id;
-            req.session['rol'] = cAuthenticatedUser.tipousuario;
+            req.session['id_usuario'] = mDbResponse.rows[0].id;
+            req.session['rol'] = mDbResponse.rows[0].tipousuario;
 
-            console.log("Logueado en el sistema como", cAuthenticatedUser.tipousuario, "- id de usuario", cAuthenticatedUser.id);
+            console.log("Logueado en el sistema como", mDbResponse.rows[0].tipousuario, "- id de usuario", mDbResponse.rows[0].id);
 
             // Envio al cliente los datos del usuario logueado
-            res.status(200).json(cAuthenticatedUser);
+            res.status(200).json(mDbResponse.rows[0]);
         }
         else {
             // Envio al cliente que el usuario o contraseña no correpsonden
