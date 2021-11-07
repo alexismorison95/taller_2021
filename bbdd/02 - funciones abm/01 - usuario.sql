@@ -1,33 +1,61 @@
 -- FUNCIONES USUARIO
 
-CREATE OR REPLACE FUNCTION alta_usuario(nombreReal_nuevo varchar, nombreUsuario_nuevo varchar, contrasenia_nuevo varchar, tipousuario_nuevo varchar) RETURNS SETOF usuario AS
+CREATE OR REPLACE FUNCTION AltaUsuario(
+										pNombreReal VARCHAR, 
+										pNombreUsuario VARCHAR, 
+										pContrasenia VARCHAR, 
+										pIdTipoUsuario INT) RETURNS INT AS
 $$
+DECLARE mId INT;
 BEGIN
-	RETURN QUERY 
-		INSERT INTO usuario(nombrereal, nombreusuario, contrasenia, tipousuario) 
-		VALUES (nombreReal_nuevo, nombreUsuario_nuevo, contrasenia_nuevo, tipousuario_nuevo) RETURNING *;
+	INSERT INTO Usuario(NombreReal, NombreUsuario, Contrasenia, IdTipoUsuario) 
+	VALUES (pNombreReal, pNombreUsuario, pContrasenia, pIdTipoUsuario) 
+	RETURNING Id INTO mId;
+	
+	RETURN mId;
 END;
 $$
 LANGUAGE 'plpgsql';
 
 --------------------------
 
-CREATE OR REPLACE FUNCTION baja_usuario(id_usuario int) RETURNS SETOF usuario AS
+CREATE OR REPLACE FUNCTION BajaUsuario(pId INT) RETURNS INT AS
 $$
+DECLARE mId INT;
 BEGIN
-	RETURN QUERY 
-		DELETE FROM usuario WHERE usuario.id = id_usuario RETURNING *;
+	DELETE 
+	FROM Usuario 
+	WHERE 
+		Usuario.Id = pId 
+	RETURNING Id INTO mId;
+	
+	RETURN mId;
 END;
 $$
 LANGUAGE 'plpgsql';
 
 --------------------------
 
-CREATE OR REPLACE FUNCTION modificacion_usuario(id_usuario int, nombreReal_nuevo varchar, nombreUsuario_nuevo varchar, contrasenia_nuevo varchar, tipousuario_nuevo varchar) RETURNS SETOF usuario AS
+CREATE OR REPLACE FUNCTION ModificarUsuario(
+											pId INT, 
+											pNombreReal VARCHAR, 
+											pNombreUsuario VARCHAR, 
+											pContrasenia VARCHAR, 
+											pIdTipoUsuario INT) RETURNS INT AS
 $$
+DECLARE mId INT;
 BEGIN
-	RETURN QUERY 
-		UPDATE usuario SET nombrereal = nombreReal_nuevo, nombreusuario = nombreUsuario_nuevo, contrasenia = contrasenia_nuevo, tipousuario = tipousuario_nuevo WHERE id = id_usuario RETURNING *;
+	UPDATE Usuario 
+	SET 
+		NombreReal = pNombreReal, 
+		NombreUsuario = pNombreUsuario, 
+		Contrasenia = pContrasenia, 
+		IdTipoUsuario = pIdTipoUsuario 
+	WHERE 
+		Id = pId 
+	RETURNING Id INTO mId;
+	
+	RETURN mId;
 END;
 $$
 LANGUAGE 'plpgsql';

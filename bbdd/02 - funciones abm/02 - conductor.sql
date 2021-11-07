@@ -1,22 +1,34 @@
--- FUNCIONES CONDUCTOR. FALTA MODIFICACION
+-- FUNCIONES CONDUCTOR
 
-CREATE OR REPLACE FUNCTION alta_conductor(dni_nuevo varchar, nombre_nuevo varchar, apellido_nuevo varchar) RETURNS SETOF conductor AS
+CREATE OR REPLACE FUNCTION AltaConductor(
+										pDNI VARCHAR, 
+										pNombre VARCHAR, 
+										pApellido VARCHAR) RETURNS INT AS
 $$
+DECLARE mId INT;
 BEGIN
-	RETURN QUERY 
-		INSERT INTO conductor(dni, nombre, apellido) 
-		VALUES (dni_nuevo, nombre_nuevo, apellido_nuevo) RETURNING *;
+	INSERT INTO Conductor(DNI, Nombre, Apellido) 
+	VALUES (pDNI, pNombre, pApellido) 
+	RETURNING DNI INTO mId;
+	
+	RETURN mId;
 END;
 $$
 LANGUAGE 'plpgsql';
 
 ----------------------------
 
-CREATE OR REPLACE FUNCTION modificar_conductor(dni_conductor varchar, nombre_nuevo varchar, apellido_nuevo varchar) RETURNS SETOF conductor AS
+CREATE OR REPLACE FUNCTION ModificarConductor(pDNI VARCHAR, pNombre VARCHAR, pApellido VARCHAR) RETURNS INT AS
 $$
+DECLARE mId INT;
 BEGIN
-	RETURN QUERY 
-		UPDATE conductor SET nombre = nombre_nuevo, apellido = apellido_nuevo WHERE dni = dni_conductor RETURNING *;
+	UPDATE Conductor 
+	SET Nombre = pNombre, Apellido = pApellido 
+	WHERE 
+		DNI = pDNI 
+	RETURNING DNI INTO mId;
+	
+	RETURN mId;
 END;
 $$
 LANGUAGE 'plpgsql';

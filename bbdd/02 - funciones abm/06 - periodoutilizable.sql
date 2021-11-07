@@ -1,22 +1,35 @@
--- FUNCIONES PERIODOUTILIZABLE. FALTA MODIFICACION
+-- FUNCIONES PeriodoUtilizable. FALTA MODIFICACION
 
-CREATE OR REPLACE FUNCTION alta_periodoutilizable(fechainicio_nuevo date, fechavencimiento_nuevo date, nroingreso_nuevo int, idequipo_nuevo int) RETURNS SETOF periodoutilizable AS
+CREATE OR REPLACE FUNCTION AltaPeriodoUtilizable(
+												pFechaInicio DATE, 
+												pFechaVencimiento DATE, 
+												pNroIngreso INT, 
+												pIdEquipo INT) RETURNS INT AS
 $$
+DECLARE mId INT;
 BEGIN
-	RETURN QUERY 
-		INSERT INTO periodoutilizable(fechainicio, fechavencimiento, nroingreso, idequipo) 
-		VALUES (fechainicio_nuevo, fechavencimiento_nuevo, nroingreso_nuevo, idequipo_nuevo) RETURNING *;
+	INSERT INTO PeriodoUtilizable(FechaInicio, FechaVencimiento, NroIngreso, IdEquipo) 
+	VALUES (pFechaInicio, pFechaVencimiento, pNroIngreso, pIdEquipo)
+	RETURNING Id INTO mId;
+	
+	RETURN mId;
 END;
 $$
 LANGUAGE 'plpgsql';
 
 --------------------------
 
-CREATE OR REPLACE FUNCTION baja_periodoutilizable(id_periodoutilizable int) RETURNS SETOF periodoutilizable AS
+CREATE OR REPLACE FUNCTION BajaPeriodoUtilizable(pIdPeriodoUtilizable INT) RETURNS INT AS
 $$
+DECLARE mId INT;
 BEGIN
-	RETURN QUERY 
-		UPDATE periodoutilizable SET activo = false WHERE id = id_periodoutilizable RETURNING *;
+	UPDATE PeriodoUtilizable 
+	SET Activo = false 
+	WHERE 
+		Id = pIdPeriodoUtilizable
+	RETURNING Id INTO mId;
+	
+	RETURN mId;
 END;
 $$
 LANGUAGE 'plpgsql';

@@ -1,52 +1,50 @@
 ------------------------------------------------------------------------------------------ TRIGGERS
 
--- COSAS PARA HACER
--- Al dar de baja un usuario, si es examinador hacer un trigger que de de baja ese examinador,
--- de la tabla examinadores
 
--- Tambien si se modifica el usuario y se pone como examinador hay que darlo de alta en la tabla examinadores
-
-
-
-
-
-
--- al dar de alta un nuevo periodoutilizable, actualizar en nroactual de equipo
-CREATE OR REPLACE FUNCTION actualizar_nroactual_equipo_periodoutilizable() RETURNS trigger AS
+-- al dar de alta un nuevo periodo utilizable, 
+-- actualizar el nroactual del equipo y activarlo
+CREATE OR REPLACE FUNCTION ActualizarNroActualEquipoAltaPeriodoUtilizable() RETURNS TRIGGER AS
 $$
 BEGIN
-
-	UPDATE equipo SET nroactual = NEW.nroingreso, activo = true WHERE id = NEW.idequipo;
+	UPDATE Equipo 
+	SET 
+		NroActual = NEW.NroIngreso, 
+		Activo = true 
+	WHERE Id = NEW.IdEquipo;
  
 	RETURN NEW;
 END;
 $$
 LANGUAGE 'plpgsql';
 
-CREATE TRIGGER actualizar_periodoutilizable_trigger AFTER INSERT ON periodoutilizable
-FOR EACH ROW EXECUTE PROCEDURE actualizar_nroactual_equipo_periodoutilizable();
+CREATE TRIGGER ActualizarPeriodoUtilizableTRIGGER AFTER INSERT ON PeriodoUtilizable
+FOR EACH ROW EXECUTE PROCEDURE ActualizarNroActualEquipoAltaPeriodoUtilizable();
 
 
 ----------------------------------
 
--- al dar de alta una nueva prueba, actualizar en nroactual de equipo
-CREATE OR REPLACE FUNCTION actualizar_nroactual_equipo_prueba() RETURNS trigger AS
+-- al dar de alta una nueva prueba, actualizar el nroactual del equipo
+CREATE OR REPLACE FUNCTION ActualizarNroActualEquipoAltaPrueba() RETURNS TRIGGER AS
 $$
-DECLARE
-	id_equipo integer;
+DECLARE mId INT;
 BEGIN
+	SELECT 
+		IdEquipo INTO mId 
+	FROM Prestamo 
+	WHERE 
+		Id = NEW.IdPrestamo;
 
-	SELECT prestamo.idequipo INTO id_equipo FROM prestamo WHERE prestamo.id = NEW.idprestamo;
-
-	UPDATE equipo SET nroactual = nroactual + 1 WHERE id = id_equipo;
+	UPDATE Equipo 
+	SET NroActual = NroActual + 1 
+	WHERE Id = mId;
  
 	RETURN NEW;
 END;
 $$
 LANGUAGE 'plpgsql';
 
-CREATE TRIGGER nueva_prueba_actualizar_nroactual_equipo_trigger AFTER INSERT ON prueba
-FOR EACH ROW EXECUTE PROCEDURE actualizar_nroactual_equipo_prueba();
+CREATE TRIGGER AltaPruebaActualizarNroActualEquipoTRIGGER AFTER INSERT ON Prueba
+FOR EACH ROW EXECUTE PROCEDURE ActualizarNroActualEquipoAltaPrueba();
 
 
 
@@ -57,130 +55,134 @@ FOR EACH ROW EXECUTE PROCEDURE actualizar_nroactual_equipo_prueba();
 -- VALIDACIONES DE INSERT
 
 -- USUARIO
-CREATE OR REPLACE FUNCTION insertar_usuario() RETURNS trigger AS
-$$
-BEGIN
+-- CREATE OR REPLACE FUNCTION insertar_usuario() RETURNS TRIGGER AS
+-- $$
+-- BEGIN
 
-	NEW.nombreReal = LOWER(NEW.nombreReal);
+	-- NEW.nombreReal = LOWER(NEW.nombreReal);
 	
-	NEW.tipousuario = LOWER(NEW.tipousuario);
+	-- NEW.tipousuario = LOWER(NEW.tipousuario);
 
-	RETURN NEW;
+	-- RETURN NEW;
 
-END;
-$$
-LANGUAGE 'plpgsql';
+-- END;
+-- $$
+-- LANGUAGE 'plpgsql';
 
-CREATE TRIGGER insertar_usuario_trigger BEFORE INSERT ON usuario
-FOR EACH ROW EXECUTE PROCEDURE insertar_usuario();
+-- CREATE TRIGGER insertar_usuario_TRIGGER BEFORE INSERT ON usuario
+-- FOR EACH ROW EXECUTE PROCEDURE insertar_usuario();
 
 ----------
 
-CREATE OR REPLACE FUNCTION insertar_usuario_after() RETURNS trigger AS
+-- Se ejecuta cuando se inserta un usuario de tipo examinador (3)
+CREATE OR REPLACE FUNCTION InsertarUsuarioExaminador() RETURNS TRIGGER AS
 $$
 BEGIN
-
-	-- AGREGUE ESTO PARA QUE CUANDO CREAS UN USUARIO, SI ES EXAMINADOR VA A LA TABLA EXAMINADORES
-	IF NEW.tipousuario = 'examinador' THEN
+	IF NEW.IdTipoUsuario = 3 THEN
 		
-		INSERT INTO examinador(nombrereal, idusuario) VALUES (NEW.nombreReal, NEW.id);
+		INSERT INTO Examinador(NombreReal, IdUsuario) 
+		VALUES (NEW.NombreReal, NEW.Id);
 		
 	END IF;
 
 	RETURN NEW;
-
 END;
 $$
 LANGUAGE 'plpgsql';
 
-CREATE TRIGGER insertar_usuario_after_trigger AFTER INSERT ON usuario
-FOR EACH ROW EXECUTE PROCEDURE insertar_usuario_after();
+CREATE TRIGGER InsertarUsuarioExaminadorTRIGGER AFTER INSERT ON Usuario
+FOR EACH ROW EXECUTE PROCEDURE InsertarUsuarioExaminador();
 
 ----------
 
-CREATE OR REPLACE FUNCTION editar_usuario() RETURNS trigger AS
+-- al editar usuarios, si se le asigna el tipo examinador (3), 
+-- hay que insertarlo en la tabla examinador
+CREATE OR REPLACE FUNCTION EditarUsuarioExaminador() RETURNS TRIGGER AS
 $$
 BEGIN
-
-	IF NEW.tipousuario = 'examinador' THEN
+	IF NEW.IdTipoUsuario = 3 THEN
 		
-		INSERT INTO examinador(nombrereal, idusuario) VALUES (NEW.nombreReal, NEW.id);
+		INSERT INTO Examinador(NombreReal, IdUsuario) 
+		VALUES (NEW.NombreReal, NEW.Id);
 		
 	END IF;
 
 	RETURN NEW;
-
 END;
 $$
 LANGUAGE 'plpgsql';
 
-CREATE TRIGGER editar_usuario_trigger BEFORE UPDATE ON usuario
-FOR EACH ROW EXECUTE PROCEDURE editar_usuario();
+CREATE TRIGGER EditarUsuarioExaminadorTRIGGER BEFORE UPDATE ON Usuario
+FOR EACH ROW EXECUTE PROCEDURE EditarUsuarioExaminador();
 
 -------
 
-CREATE OR REPLACE FUNCTION eliminar_usuario() RETURNS trigger AS
+-- al eliminar usuario, si es examinador (3), darlo de baja en la tabla
+CREATE OR REPLACE FUNCTION EliminarUsuarioExaminador() RETURNS TRIGGER AS
 $$
 BEGIN
-
-	IF OLD.tipousuario = 'examinador' THEN
+	IF OLD.IdTipoUsuario = 3 THEN
 		
-		UPDATE examinador SET activo=false, idusuario=null WHERE OLD.id = examinador.idusuario;
+		UPDATE Examinador 
+		SET 
+			Activo = false, 
+			IdUsuario = null 
+		WHERE 
+			OLD.Id = IdUsuario;
 		
 	END IF;
 
 	RETURN OLD;
-
 END;
 $$
 LANGUAGE 'plpgsql';
 
-CREATE TRIGGER eliminar_usuario_trigger BEFORE DELETE ON usuario
-FOR EACH ROW EXECUTE PROCEDURE eliminar_usuario();
+CREATE TRIGGER EliminarUsuarioExaminadorTRIGGER BEFORE DELETE ON Usuario
+FOR EACH ROW EXECUTE PROCEDURE EliminarUsuarioExaminador();
 
 
 ----------------------------------
 
--- CONDUCTOR
-CREATE OR REPLACE FUNCTION insertar_conductor() RETURNS trigger AS
-$$
-BEGIN
+-- -- CONDUCTOR
+-- CREATE OR REPLACE FUNCTION insertar_conductor() RETURNS TRIGGER AS
+-- $$
+-- BEGIN
 
-	NEW.nombre = LOWER(NEW.nombre);
+	-- NEW.nombre = LOWER(NEW.nombre);
 	
-	NEW.apellido = LOWER(NEW.apellido);
+	-- NEW.apellido = LOWER(NEW.apellido);
  
-	RETURN NEW;
-END;
-$$
-LANGUAGE 'plpgsql';
+	-- RETURN NEW;
+-- END;
+-- $$
+-- LANGUAGE 'plpgsql';
 
-CREATE TRIGGER insertar_conductor_trigger BEFORE INSERT ON conductor
-FOR EACH ROW EXECUTE PROCEDURE insertar_conductor();
+-- CREATE TRIGGER insertar_conductor_TRIGGER BEFORE INSERT ON conductor
+-- FOR EACH ROW EXECUTE PROCEDURE insertar_conductor();
 
 
 ----------------------------------
 
 -- DOMINIO
-CREATE OR REPLACE FUNCTION insertar_dominio() RETURNS trigger AS
-$$
-BEGIN
+-- CREATE OR REPLACE FUNCTION insertar_dominio() RETURNS TRIGGER AS
+-- $$
+-- BEGIN
 
-	NEW.descripcion = LOWER(NEW.descripcion);
+	-- NEW.descripcion = LOWER(NEW.descripcion);
  
-	RETURN NEW;
-END;
-$$
-LANGUAGE 'plpgsql';
+	-- RETURN NEW;
+-- END;
+-- $$
+-- LANGUAGE 'plpgsql';
 
-CREATE TRIGGER insertar_dominio_trigger BEFORE INSERT ON dominio
-FOR EACH ROW EXECUTE PROCEDURE insertar_dominio();
+-- CREATE TRIGGER insertar_dominio_TRIGGER BEFORE INSERT ON dominio
+-- FOR EACH ROW EXECUTE PROCEDURE insertar_dominio();
 
 
 ----------------------------------
 
 -- EXAMINADOR
--- CREATE OR REPLACE FUNCTION insertar_examinador() RETURNS trigger AS
+-- CREATE OR REPLACE FUNCTION insertar_examinador() RETURNS TRIGGER AS
 -- $$
 -- BEGIN
 
@@ -193,32 +195,32 @@ FOR EACH ROW EXECUTE PROCEDURE insertar_dominio();
 -- $$
 -- LANGUAGE 'plpgsql';
 
--- CREATE TRIGGER insertar_examinador_trigger BEFORE INSERT ON examinador
+-- CREATE TRIGGER insertar_examinador_TRIGGER BEFORE INSERT ON examinador
 -- FOR EACH ROW EXECUTE PROCEDURE insertar_examinador();
 
 
 ----------------------------------
 
 -- EQUIPO
-CREATE OR REPLACE FUNCTION insertar_equipo() RETURNS trigger AS
-$$
-BEGIN
+-- CREATE OR REPLACE FUNCTION insertar_equipo() RETURNS TRIGGER AS
+-- $$
+-- BEGIN
 
-	NEW.nombre = LOWER(NEW.nombre);
+	-- NEW.nombre = LOWER(NEW.nombre);
 	
-	IF NEW.nroactual = 0 THEN
+	-- IF NEW.nroactual = 0 THEN
 		
-		RAISE EXCEPTION 'El número actual del equipo debe ser distinto de cero.';
+		-- RAISE EXCEPTION 'El número actual del equipo debe ser distinto de cero.';
 		
-	END IF;
+	-- END IF;
  	
-	RETURN NEW;
-END;
-$$
-LANGUAGE 'plpgsql';
+	-- RETURN NEW;
+-- END;
+-- $$
+-- LANGUAGE 'plpgsql';
 
-CREATE TRIGGER insertar_equipo_trigger BEFORE INSERT ON equipo
-FOR EACH ROW EXECUTE PROCEDURE insertar_equipo();
+-- CREATE TRIGGER insertar_equipo_TRIGGER BEFORE INSERT ON equipo
+-- FOR EACH ROW EXECUTE PROCEDURE insertar_equipo();
 
 
 ----------------------------------
@@ -226,27 +228,27 @@ FOR EACH ROW EXECUTE PROCEDURE insertar_equipo();
 
 -- VALIDACION DE ACTUALIZACION DE LAS PRUEBAS
 
-CREATE OR REPLACE FUNCTION verificar_prueba() RETURNS trigger AS
-$$
-DECLARE
-	id_usuario integer;
-BEGIN
+-- CREATE OR REPLACE FUNCTION verificar_prueba() RETURNS TRIGGER AS
+-- $$
+-- DECLARE
+	-- id_usuario integer;
+-- BEGIN
 	
-	IF NEW.verificado = false THEN
+	-- IF NEW.verificado = false THEN
 		
-		RAISE EXCEPTION 'El estado de verificado debe ser true.';
+		-- RAISE EXCEPTION 'El estado de verificado debe ser true.';
 		
-	END IF;
+	-- END IF;
 	
-	NEW.descripcionrechazo = LOWER(NEW.descripcionrechazo);
+	-- NEW.descripcionrechazo = LOWER(NEW.descripcionrechazo);
 	
-	RETURN NEW;
-END;
-$$
-LANGUAGE 'plpgsql';
+	-- RETURN NEW;
+-- END;
+-- $$
+-- LANGUAGE 'plpgsql';
 
-CREATE TRIGGER verificar_prueba_trigger BEFORE UPDATE ON prueba
-FOR EACH ROW EXECUTE PROCEDURE verificar_prueba();
+-- CREATE TRIGGER verificar_prueba_TRIGGER BEFORE UPDATE ON prueba
+-- FOR EACH ROW EXECUTE PROCEDURE verificar_prueba();
 
 
 

@@ -2,85 +2,89 @@
 
 ------------------------------------------------------------------------------------------ TABLAS
 
--- serial para autoincremental
-create table usuario (
-	id serial primary key,
-	nombrereal varchar not null,
-	nombreusuario varchar not null,
-	contrasenia varchar not null,
-	tipousuario varchar
+CREATE TABLE TipoUsuario (
+	Id SERIAL PRIMARY KEY,
+	TipoUsuario VARCHAR
 );
 
-create table conductor (
-	dni varchar primary key,
-	nombre varchar not null,
-	apellido varchar not null
+CREATE TABLE Usuario (
+	Id SERIAL PRIMARY KEY,
+	NombreReal VARCHAR NOT NULL,
+	NombreUsuario VARCHAR NOT NULL,
+	Contrasenia VARCHAR NOT NULL,
+	IdTipoUsuario INT REFERENCES TipoUsuario(Id)
 );
 
-create table dominio (
-	id varchar primary key,
-	descripcion varchar not null
+CREATE TABLE Conductor (
+	DNI VARCHAR PRIMARY KEY,
+	Nombre VARCHAR NOT NULL,
+	Apellido VARCHAR NOT NULL
 );
 
-create table examinador (
-	id serial primary key,
-	nombrereal varchar not null,
-	activo boolean null,
-	idusuario int references usuario(id)
+CREATE TABLE Dominio (
+	Id VARCHAR PRIMARY KEY,
+	Descripcion VARCHAR NOT NULL
 );
 
-create table equipo (
-	id serial primary key,
-	nombre varchar not null, 
-	activo boolean default false,
-	nroactual int
+CREATE TABLE Examinador (
+	Id SERIAL PRIMARY KEY,
+	NombreReal VARCHAR NOT NULL,
+	Activo BOOLEAN null,
+	IdUsuario INT REFERENCES Usuario(Id)
 );
 
-create table periodoutilizable (
-	id serial primary key,
-	activo boolean null,
-	fechainicio date not null,
-	fechavencimiento date not null,
-	nroingreso int not null,
-	idequipo int references equipo(id)
+CREATE TABLE Equipo (
+	Id SERIAL PRIMARY KEY,
+	Nombre VARCHAR NOT NULL, 
+	Activo BOOLEAN default false,
+	NroActual INT
 );
 
-create table prestamo (
-	id serial primary key,
-	activo boolean null,
-	fechaprestamo date not null,
-	horaprestamo time not null,
-	nroinicial int not null,
-	fechadevolucion date,
-	horadevolucion time,
-	nrodevolucion int,
-	idexaminador int references examinador(id),
-	idequipo int references equipo(id)
+CREATE TABLE PeriodoUtilizable (
+	Id SERIAL PRIMARY KEY,
+	Activo BOOLEAN null,
+	FechaInicio DATE NOT NULL,
+	FechaVencimiento DATE NOT NULL,
+	NroIngreso INT NOT NULL,
+	IdEquipo INT REFERENCES Equipo(Id)
 );
 
-create table prueba (
-	id serial primary key,
-	fecha date not null,
-	hora time not null,
-	nromuestra int not null,
-	resultado float not null check(resultado >= 0.0),
-	nroacta int,
-	nroretencion int,
-	verificado boolean default false,
-	rechazado boolean default false,
-	descripcionrechazo varchar,
-	idverificador int,
-	dniconductor varchar references conductor(dni),
-	iddominio varchar references dominio(id),
-	idprestamo int references prestamo(id)
+CREATE TABLE Prestamo (
+	Id SERIAL PRIMARY KEY,
+	Activo BOOLEAN null,
+	FechaPrestamo DATE NOT NULL,
+	HoraPrestamo TIME NOT NULL,
+	NroInicial INT NOT NULL,
+	FechaDevolucion DATE,
+	HoraDevolucion TIME,
+	NroDevolucion INT,
+	IdExaminador INT REFERENCES Examinador(Id),
+	IdEquipo INT REFERENCES Equipo(Id)
+);
+
+CREATE TABLE Prueba (
+	Id SERIAL PRIMARY KEY,
+	Fecha DATE NOT NULL,
+	Hora TIME NOT NULL,
+	NroMuestra INT NOT NULL,
+	Resultado FLOAT NOT NULL check(resultado >= 0.0),
+	NroActa INT,
+	NroRetencion INT,
+	Verificado BOOLEAN default false,
+	Rechazado BOOLEAN default false,
+	DescripcionRechazo VARCHAR,
+	IdVerificador INT,
+	DNIConductor VARCHAR REFERENCES Conductor(DNI),
+	IdDominio VARCHAR REFERENCES Dominio(Id),
+	IdPrestamo INT REFERENCES Prestamo(Id)
 );
 
 
 ---------------------------------------------------------------- TABLA PARA ADMINISTRAR SESIONES ACTIVAS SW
-CREATE TABLE "sesiones" (
-	"sid" varchar NOT NULL COLLATE "default",
+CREATE TABLE Sesion (
+	"sid" VARCHAR NOT NULL COLLATE "default",
 	"sess" json NOT NULL,
-	"expire" timestamp(6) NOT NULL
+	"expire" TIMEstamp(6) NOT NULL
 )
 WITH (OIDS=FALSE);
-ALTER TABLE "sesiones" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+ALTER TABLE Sesion ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;

@@ -1,34 +1,53 @@
 ------------------------------------------------------------------------------------------ VISTAS
 
--- vista que liste la cantidad de positivos y negativos en la ultima semana
-create view vista_cant_positivos_negativos_ultimos_7_dias as 
-	SELECT SUM(CASE WHEN resultado = 0.0 THEN 1 ELSE 0 END) AS negativos,
-			SUM(CASE WHEN resultado > 0.0 THEN 1 ELSE 0 END) AS positivos, 
-			prueba.fecha
-    FROM prueba
-	WHERE prueba.fecha >= CURRENT_DATE - 7 AND prueba.fecha <= CURRENT_DATE
-	GROUP BY prueba.fecha
-	ORDER BY prueba.fecha;
+-- lista la cantidad de positivos y negativos en la ultima semana
+CREATE VIEW VistaCantidadPositivosYNegativosUltimaSemana AS 
+
+	SELECT 
+		Fecha,
+		SUM(CASE WHEN Resultado = 0.0 THEN 1 ELSE 0 END) AS Negativos,
+		SUM(CASE WHEN Resultado > 0.0 THEN 1 ELSE 0 END) AS Positivos
+    FROM Prueba
+	WHERE 
+		Fecha >= CURRENT_DATE - 7 
+		AND Fecha <= CURRENT_DATE
+	GROUP BY 
+		Fecha
+	ORDER BY 
+		Fecha;
 
 --------------------------
 
 
--- vista que liste la cantidad de pruebas en la ultima semana
-create view vista_cant_pruebas_ultimos_7_dias as 
-	SELECT COUNT (*) AS cantidad, prueba.fecha
+-- lista la cantidad de pruebas en la ultima semana
+CREATE VIEW VistaCantidadPruebasUltimaSemana AS 
+
+	SELECT 
+		Fecha,
+		COUNT(*) AS Cantidad
     FROM prueba
-	WHERE prueba.fecha >= CURRENT_DATE - 7 AND prueba.fecha <= CURRENT_DATE
-	GROUP BY prueba.fecha
-	ORDER BY prueba.fecha;
+	WHERE 
+		Fecha >= CURRENT_DATE - 7 
+		AND Fecha <= CURRENT_DATE
+	GROUP BY 
+		Fecha
+	ORDER BY 
+		Fecha;
 	
 --------------------------	
 
--- vista del resultado mas alto de pruebas en el ultimo mes
-create view vista_resultado_mas_alto_ultimo_mes as 
-	SELECT MAX(prueba.resultado), prueba.fecha
-    FROM prueba
-	WHERE prueba.fecha >= CURRENT_DATE - 30 AND prueba.fecha <= CURRENT_DATE
-	GROUP BY prueba.resultado, prueba.fecha
-	ORDER BY prueba.resultado desc
-	LIMIT 1;
+-- vista de los resultados mas altos de pruebas en el ultimo mes
+CREATE VIEW VistaResultadosMasAltosUltimoMes AS 
+
+	SELECT
+		Fecha,
+		MAX(Resultado) AS Resultado
+    FROM Prueba
+	WHERE 
+		Fecha >= CURRENT_DATE - 30 
+		AND Fecha <= CURRENT_DATE
+	GROUP BY 
+		Fecha
+	ORDER BY 
+		Fecha;
 	

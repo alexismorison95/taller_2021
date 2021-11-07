@@ -1,23 +1,44 @@
--- FUNCIONES PRUEBA
+-- FUNCIONES Prueba
 
-CREATE OR REPLACE FUNCTION alta_prueba(fecha_nuevo date, hora_nuevo time, nromuestra_nuevo int, resultado_nuevo float, nroacta_nuevo int, nroretencion_nuevo int, dniconductor_nuevo varchar, iddominio_nuevo varchar, idprestamo_nuevo int) RETURNS SETOF prueba AS
+CREATE OR REPLACE FUNCTION AltaPrueba(
+									pFecha DATE, 
+									pHora TIME, 
+									pNroMuestra INT, 
+									pResultado FLOAT, 
+									pNroActa INT, 
+									pNroRetencion INT, 
+									pDNIConductor VARCHAR, 
+									pIdDominio VARCHAR, 
+									pIdPrestamo INT) RETURNS INT AS
 $$
+DECLARE mId INT;
 BEGIN
-	RETURN QUERY 
-		INSERT INTO prueba(fecha, hora, nromuestra, resultado, nroacta, nroretencion, dniconductor,iddominio, idprestamo) 
-		VALUES (fecha_nuevo, hora_nuevo, nromuestra_nuevo, resultado_nuevo, nroacta_nuevo, nroretencion_nuevo, dniconductor_nuevo,iddominio_nuevo, idprestamo_nuevo) RETURNING *;
+	INSERT INTO Prueba(Fecha, Hora, NroMuestra, Resultado, NroActa, NroRetencion, DNIConductor, IdDominio, IdPrestamo) 
+	VALUES (pFecha, pHora, pNroMuestra, pResultado, pNroActa, pNroRetencion, pDNIConductor, pIdDominio, pIdPrestamo)
+	RETURNING Id INTO mId;
+	
+	RETURN mId;
 END;
 $$
 LANGUAGE 'plpgsql';
 
 --------------------------
 
-CREATE OR REPLACE FUNCTION modificacion_prueba(id_prueba int, rechazado_nuevo boolean, descripcionrechazo_nuevo varchar) 
-RETURNS SETOF prueba AS
+CREATE OR REPLACE FUNCTION ModificarPrueba(
+											pId INT, 
+											pRechazado BOOLEAN, 
+											pDescripcionRechazo VARCHAR) RETURNS INT AS
 $$
+DECLARE mId INT;
 BEGIN
-	RETURN QUERY 
-		UPDATE prueba SET verificado = true, rechazado = rechazado_nuevo, descripcionrechazo = descripcionrechazo_nuevo WHERE id = id_prueba RETURNING *;
+	UPDATE Prueba 
+	SET 
+		Verificado = true, Rechazado = pRechazado, DescripcionRechazo = pDescripcionRechazo 
+	WHERE 
+		Id = pId
+	RETURNING Id INTO mId;
+	
+	RETURN mId;
 END;
 $$
 LANGUAGE 'plpgsql';

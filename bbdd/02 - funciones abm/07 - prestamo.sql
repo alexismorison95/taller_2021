@@ -1,22 +1,44 @@
--- FUNCIONES PRESTAMO
+-- FUNCIONES Prestamo
 
-CREATE OR REPLACE FUNCTION alta_prestamo(fechaprestamo_nuevo date, horaprestamo_nuevo time, nroinicial_nuevo int, idexaminador_nuevo int, idequipo_nuevo int) RETURNS SETOF prestamo AS
+CREATE OR REPLACE FUNCTION AltaPrestamo(
+										pFechaPrestamo DATE, 
+										pHoraPrestamo TIME, 
+										pNroInicial INT, 
+										pIdExaminador INT, 
+										pIdEquipo INT) RETURNS INT AS
 $$
+DECLARE mId INT;
 BEGIN
-	RETURN QUERY 
-		INSERT INTO prestamo(fechaprestamo, horaprestamo, nroinicial, idexaminador, idequipo) 
-		VALUES (fechaprestamo_nuevo, horaprestamo_nuevo, nroinicial_nuevo, idexaminador_nuevo, idequipo_nuevo) RETURNING *;
+	INSERT INTO Prestamo(FechaPrestamo, HoraPrestamo, NroInicial, IdExaminador, IdEquipo) 
+	VALUES (pFechaPrestamo, pHoraPrestamo, pNroInicial, pIdExaminador, pIdEquipo) 
+	RETURNING Id INTO mId;
+	
+	RETURN mId;
 END;
 $$
 LANGUAGE 'plpgsql';
 
 --------------------------
 
-CREATE OR REPLACE FUNCTION baja_prestamo(id_prestamo int, fechadevolucion_nuevo date, horadevolucion_nuevo time, nrodevolucion_nuevo int) RETURNS SETOF prestamo AS
+CREATE OR REPLACE FUNCTION BajaPrestamo(
+										pIdPrestamo INT, 
+										pFechaDevolucion DATE, 
+										pHoraDevolucion TIME, 
+										pNroDevolucion INT) RETURNS INT AS
 $$
+DECLARE mId INT;
 BEGIN
-	RETURN QUERY 
-		UPDATE prestamo SET activo = false, fechadevolucion = fechadevolucion_nuevo, horadevolucion = horadevolucion_nuevo, nrodevolucion = nrodevolucion_nuevo WHERE id = id_prestamo RETURNING *;
+	UPDATE Prestamo 
+	SET 
+		Activo = false, 
+		FechaDevolucion = pFechaDevolucion, 
+		HoraDevolucion = pHoraDevolucion, 
+		NroDevolucion = pNroDevolucion 
+	WHERE 
+		Id = pIdPrestamo 
+	RETURNING Id INTO mId;
+	
+	RETURN mId;
 END;
 $$
 LANGUAGE 'plpgsql';

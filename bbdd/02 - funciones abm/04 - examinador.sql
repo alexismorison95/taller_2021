@@ -12,11 +12,17 @@
 
 --------------------------
 
-CREATE OR REPLACE FUNCTION baja_examinador(id_examinador int) RETURNS SETOF examinador AS
+CREATE OR REPLACE FUNCTION BajaExaminador(pId INT) RETURNS INT AS
 $$
+DECLARE mId INT;
 BEGIN
-	RETURN QUERY 
-		UPDATE examinador SET activo = false WHERE id = id_examinador RETURNING *;
+	UPDATE Examinador 
+	SET Activo = false 
+	WHERE 
+		Id = pId
+	RETURNING Id INTO mId;	
+	
+	RETURN mId;
 END;
 $$
 LANGUAGE 'plpgsql';
