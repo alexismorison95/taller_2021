@@ -100,7 +100,7 @@ FOR EACH ROW EXECUTE PROCEDURE InsertarUsuarioExaminador();
 CREATE OR REPLACE FUNCTION EditarUsuarioExaminador() RETURNS TRIGGER AS
 $$
 BEGIN
-	IF NEW.IdTipoUsuario = 3 THEN
+	IF NEW.TipoUsuario = 'examinador' THEN
 		
 		INSERT INTO Examinador(NombreReal, IdUsuario) 
 		VALUES (NEW.NombreReal, NEW.Id);
@@ -121,7 +121,7 @@ FOR EACH ROW EXECUTE PROCEDURE EditarUsuarioExaminador();
 CREATE OR REPLACE FUNCTION EliminarUsuarioExaminador() RETURNS TRIGGER AS
 $$
 BEGIN
-	IF OLD.IdTipoUsuario = 3 THEN
+	IF OLD.TipoUsuario = 'examinador' THEN
 		
 		UPDATE Examinador 
 		SET 

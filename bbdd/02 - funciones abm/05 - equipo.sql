@@ -1,6 +1,6 @@
 -- FUNCIONES Equipo
 
-CREATE OR REPLACE FUNCTION AltaEquipo(pNombre varchar) RETURNS INT AS
+CREATE OR REPLACE FUNCTION AltaEquipo(pNombre varchar) RETURNS SETOF Equipo AS
 $$
 DECLARE mId INT;
 BEGIN
@@ -8,24 +8,25 @@ BEGIN
 	VALUES (pNombre, false) 
 	RETURNING Id INTO mId;
 	
-	RETURN mId;
+	RETURN QUERY SELECT * FROM Equipo WHERE Id = mId;
 END;
 $$
 LANGUAGE 'plpgsql';
 
 --------------------------
 
-CREATE OR REPLACE FUNCTION BajaEquipo(pId INT) RETURNS INT AS
+CREATE OR REPLACE FUNCTION BajaEquipo(pId INT) RETURNS SETOF Equipo AS
 $$
 DECLARE mId INT;
 BEGIN
 	UPDATE Equipo 
-	SET Activo = false 
+	SET 
+		Activo = false 
 	WHERE 
 		Id = pId 
 	RETURNING Id INTO mId;
 	
-	RETURN mId;
+	RETURN QUERY SELECT * FROM Equipo WHERE Id = mId;
 END;
 $$
 LANGUAGE 'plpgsql';
@@ -34,7 +35,7 @@ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION ModificarEquipo(
 											pId INT, 
-											pNombre varchar) RETURNS INT AS
+											pNombre varchar) RETURNS SETOF Equipo AS
 $$
 DECLARE mId INT;
 BEGIN
@@ -44,7 +45,7 @@ BEGIN
 		Id = pId 
 	RETURNING Id INTO mId;
 	
-	RETURN mId;
+	RETURN QUERY SELECT * FROM Equipo WHERE Id = mId;
 END;
 $$
 LANGUAGE 'plpgsql';

@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION AltaPrestamo(
 										pHoraPrestamo TIME, 
 										pNroInicial INT, 
 										pIdExaminador INT, 
-										pIdEquipo INT) RETURNS INT AS
+										pIdEquipo INT) RETURNS SETOF Prestamo AS
 $$
 DECLARE mId INT;
 BEGIN
@@ -13,7 +13,7 @@ BEGIN
 	VALUES (pFechaPrestamo, pHoraPrestamo, pNroInicial, pIdExaminador, pIdEquipo) 
 	RETURNING Id INTO mId;
 	
-	RETURN mId;
+	RETURN QUERY SELECT * FROM Prestamo WHERE Id = mId;
 END;
 $$
 LANGUAGE 'plpgsql';
@@ -24,7 +24,7 @@ CREATE OR REPLACE FUNCTION BajaPrestamo(
 										pIdPrestamo INT, 
 										pFechaDevolucion DATE, 
 										pHoraDevolucion TIME, 
-										pNroDevolucion INT) RETURNS INT AS
+										pNroDevolucion INT) RETURNS SETOF Prestamo AS
 $$
 DECLARE mId INT;
 BEGIN
@@ -38,7 +38,7 @@ BEGIN
 		Id = pIdPrestamo 
 	RETURNING Id INTO mId;
 	
-	RETURN mId;
+	RETURN QUERY SELECT * FROM Prestamo WHERE Id = mId;
 END;
 $$
 LANGUAGE 'plpgsql';

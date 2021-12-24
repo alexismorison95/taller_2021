@@ -3,7 +3,7 @@
 CREATE OR REPLACE FUNCTION AltaConductor(
 										pDNI VARCHAR, 
 										pNombre VARCHAR, 
-										pApellido VARCHAR) RETURNS INT AS
+										pApellido VARCHAR) RETURNS SETOF Conductor AS
 $$
 DECLARE mId INT;
 BEGIN
@@ -11,24 +11,29 @@ BEGIN
 	VALUES (pDNI, pNombre, pApellido) 
 	RETURNING DNI INTO mId;
 	
-	RETURN mId;
+	RETURN QUERY SELECT * FROM Conductor WHERE DNI = mId;
 END;
 $$
 LANGUAGE 'plpgsql';
 
 ----------------------------
 
-CREATE OR REPLACE FUNCTION ModificarConductor(pDNI VARCHAR, pNombre VARCHAR, pApellido VARCHAR) RETURNS INT AS
+CREATE OR REPLACE FUNCTION ModificarConductor(
+											pDNI VARCHAR, 
+											pNombre VARCHAR, 
+											pApellido VARCHAR) RETURNS SETOF Conductor AS
 $$
 DECLARE mId INT;
 BEGIN
 	UPDATE Conductor 
-	SET Nombre = pNombre, Apellido = pApellido 
+	SET 
+		Nombre = pNombre, 
+		Apellido = pApellido 
 	WHERE 
 		DNI = pDNI 
 	RETURNING DNI INTO mId;
 	
-	RETURN mId;
+	RETURN QUERY SELECT * FROM Conductor WHERE DNI = mId;
 END;
 $$
 LANGUAGE 'plpgsql';

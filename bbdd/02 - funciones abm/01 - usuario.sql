@@ -4,32 +4,32 @@ CREATE OR REPLACE FUNCTION AltaUsuario(
 										pNombreReal VARCHAR, 
 										pNombreUsuario VARCHAR, 
 										pContrasenia VARCHAR, 
-										pIdTipoUsuario INT) RETURNS INT AS
+										pTipoUsuario VARCHAR) RETURNS SETOF Usuario AS
 $$
 DECLARE mId INT;
 BEGIN
-	INSERT INTO Usuario(NombreReal, NombreUsuario, Contrasenia, IdTipoUsuario) 
-	VALUES (pNombreReal, pNombreUsuario, pContrasenia, pIdTipoUsuario) 
+	INSERT INTO Usuario(NombreReal, NombreUsuario, Contrasenia, TipoUsuario) 
+	VALUES (pNombreReal, pNombreUsuario, pContrasenia, pTipoUsuario) 
 	RETURNING Id INTO mId;
 	
-	RETURN mId;
+	RETURN QUERY SELECT * FROM Usuario WHERE Id = mId;
 END;
 $$
 LANGUAGE 'plpgsql';
 
 --------------------------
 
-CREATE OR REPLACE FUNCTION BajaUsuario(pId INT) RETURNS INT AS
+CREATE OR REPLACE FUNCTION BajaUsuario(pId INT) RETURNS SETOF Usuario AS
 $$
-DECLARE mId INT;
+DECLARE mUsuario Usuario;
 BEGIN
 	DELETE 
 	FROM Usuario 
 	WHERE 
 		Usuario.Id = pId 
-	RETURNING Id INTO mId;
+	RETURNING Id, NombreReal, NombreUsuario, Contrasenia, TipoUsuario INTO mUsuario;
 	
-	RETURN mId;
+	RETURN NEXT mUsuario;
 END;
 $$
 LANGUAGE 'plpgsql';
@@ -41,7 +41,7 @@ CREATE OR REPLACE FUNCTION ModificarUsuario(
 											pNombreReal VARCHAR, 
 											pNombreUsuario VARCHAR, 
 											pContrasenia VARCHAR, 
-											pIdTipoUsuario INT) RETURNS INT AS
+											pTipoUsuario INT) RETURNS SETOF Usuario AS
 $$
 DECLARE mId INT;
 BEGIN
@@ -50,12 +50,12 @@ BEGIN
 		NombreReal = pNombreReal, 
 		NombreUsuario = pNombreUsuario, 
 		Contrasenia = pContrasenia, 
-		IdTipoUsuario = pIdTipoUsuario 
+		TipoUsuario = pTipoUsuario 
 	WHERE 
 		Id = pId 
 	RETURNING Id INTO mId;
 	
-	RETURN mId;
+	RETURN QUERY SELECT * FROM Usuario WHERE Id = mId;
 END;
 $$
 LANGUAGE 'plpgsql';
