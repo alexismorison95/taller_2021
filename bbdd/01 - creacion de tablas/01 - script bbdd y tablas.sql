@@ -29,20 +29,20 @@ CREATE TABLE Dominio (
 CREATE TABLE Examinador (
 	Id SERIAL PRIMARY KEY,
 	NombreReal VARCHAR NOT NULL,
-	Activo BOOLEAN null,
+	Activo BOOLEAN NULL,
 	IdUsuario INT REFERENCES Usuario(Id)
 );
 
 CREATE TABLE Equipo (
 	Id SERIAL PRIMARY KEY,
 	Nombre VARCHAR NOT NULL, 
-	Activo BOOLEAN default false,
+	Activo BOOLEAN DEFAULT FALSE,
 	NroActual INT
 );
 
 CREATE TABLE PeriodoUtilizable (
 	Id SERIAL PRIMARY KEY,
-	Activo BOOLEAN null,
+	Activo BOOLEAN NULL,
 	FechaInicio DATE NOT NULL,
 	FechaVencimiento DATE NOT NULL,
 	NroIngreso INT NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE PeriodoUtilizable (
 
 CREATE TABLE Prestamo (
 	Id SERIAL PRIMARY KEY,
-	Activo BOOLEAN null,
+	Activo BOOLEAN NULL,
 	FechaPrestamo DATE NOT NULL,
 	HoraPrestamo TIME NOT NULL,
 	NroInicial INT NOT NULL,
@@ -70,8 +70,8 @@ CREATE TABLE Prueba (
 	Resultado FLOAT NOT NULL check(resultado >= 0.0),
 	NroActa INT,
 	NroRetencion INT,
-	Verificado BOOLEAN default false,
-	Rechazado BOOLEAN default false,
+	Verificado BOOLEAN DEFAULT FALSE,
+	Rechazado BOOLEAN DEFAULT FALSE,
 	DescripcionRechazo VARCHAR,
 	IdVerificador INT,
 	DNIConductor VARCHAR REFERENCES Conductor(DNI),
