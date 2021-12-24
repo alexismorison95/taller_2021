@@ -30,10 +30,9 @@ export async function AltaEquipo(req: Request, res: Response) {
     try {
         // Transacción
         await db.query('BEGIN;');
-        const cQuery = 'SELECT * FROM alta_equipo($1, $2);';
+        const cQuery = 'SELECT * FROM altaequipo($1);';
         const cParams = [
-            req.body.nombre, 
-            req.body.activo
+            req.body.nombre
         ];
         let mDbResponse: QueryResult<Equipo> = await db.query( cQuery, cParams );
         await db.query('COMMIT;');
