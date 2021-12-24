@@ -78,7 +78,7 @@ FOR EACH ROW EXECUTE PROCEDURE ActualizarNroActualEquipoAltaPrueba();
 CREATE OR REPLACE FUNCTION InsertarUsuarioExaminador() RETURNS TRIGGER AS
 $$
 BEGIN
-	IF NEW.IdTipoUsuario = 3 THEN
+	IF NEW.TipoUsuario = 'examinador' THEN
 		
 		INSERT INTO Examinador(NombreReal, IdUsuario) 
 		VALUES (NEW.NombreReal, NEW.Id);

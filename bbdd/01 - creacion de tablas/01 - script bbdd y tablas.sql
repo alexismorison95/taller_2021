@@ -2,17 +2,25 @@
 
 ------------------------------------------------------------------------------------------ TABLAS
 
-CREATE TABLE TipoUsuario (
-	Id SERIAL PRIMARY KEY,
-	TipoUsuario VARCHAR
-);
+-- CREATE TABLE TipoUsuario (
+	-- Id SERIAL PRIMARY KEY,
+	-- TipoUsuario VARCHAR
+-- );
+
+-- CREATE TABLE Usuario (
+	-- Id SERIAL PRIMARY KEY,
+	-- NombreReal VARCHAR NOT NULL,
+	-- NombreUsuario VARCHAR NOT NULL,
+	-- Contrasenia VARCHAR NOT NULL,
+	-- IdTipoUsuario INT REFERENCES TipoUsuario(Id)
+-- );
 
 CREATE TABLE Usuario (
 	Id SERIAL PRIMARY KEY,
 	NombreReal VARCHAR NOT NULL,
 	NombreUsuario VARCHAR NOT NULL,
 	Contrasenia VARCHAR NOT NULL,
-	IdTipoUsuario INT REFERENCES TipoUsuario(Id)
+	TipoUsuario VARCHAR NOT NULL
 );
 
 CREATE TABLE Conductor (
