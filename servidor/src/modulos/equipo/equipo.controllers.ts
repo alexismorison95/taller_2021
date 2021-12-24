@@ -121,8 +121,8 @@ export async function ListarEquiposPeriodoUtilizable(req: Request, res: Response
         const cQuery: string =  'SELECT E.*, PU.fechavencimiento ' + 
                                 'FROM equipo E ' +
                                 'JOIN periodoutilizable PU ' +
-                                'ON E.id = PU.idequipo' +
-                                'ORDER BY id;';
+                                'ON E.id = PU.idequipo ' +
+                                'ORDER BY E.id;';
 
         let mDbResponse: QueryResult<EquipoPeriodoUtilizable> = await db.query( cQuery );
 
