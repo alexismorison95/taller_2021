@@ -261,9 +261,9 @@ INSERT INTO Equipo(Nombre) VALUES ('ymc056');
 
 -- PERIODOUTILIZABLE
 
-INSERT INTO PeriodoUtilizable(FechaInicio, FechaVencimiento, NroIngreso, IdEquipo) VALUES ('01/11/2021', '01/11/2022', 2040, 1);
-INSERT INTO PeriodoUtilizable(FechaInicio, FechaVencimiento, NroIngreso, IdEquipo) VALUES ('01/11/2021', '01/11/2022', 1234, 2);
-INSERT INTO PeriodoUtilizable(FechaInicio, FechaVencimiento, NroIngreso, IdEquipo) VALUES ('01/11/2021', '01/11/2022', 4555, 3);
+INSERT INTO PeriodoUtilizable(Activo, FechaInicio, FechaVencimiento, NroIngreso, IdEquipo) VALUES (true, '01/11/2021', '01/11/2022', 2040, 1);
+INSERT INTO PeriodoUtilizable(Activo, FechaInicio, FechaVencimiento, NroIngreso, IdEquipo) VALUES (true, '01/11/2021', '01/11/2022', 1234, 2);
+INSERT INTO PeriodoUtilizable(Activo, FechaInicio, FechaVencimiento, NroIngreso, IdEquipo) VALUES (true, '01/11/2021', '01/11/2022', 4555, 3);
 
 
 -- PRESTAMO
