@@ -30,7 +30,7 @@ const pgPool = ClientDB('sesion_user');
 const cSession = session({
     store: new pgSession({
         pool: pgPool,
-        tableName: 'sesiones'
+        tableName: 'sesion'
     }),
     secret: 'mi cadena secreta',
     resave: false,
