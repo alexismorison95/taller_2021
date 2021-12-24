@@ -1,9 +1,12 @@
 import { Router } from "express";
-import { ListarEquipos, AltaEquipo } from "./equipo.controllers";
+import { ListarEquipos, AltaEquipo, EditarEquipo, BajaEquipo, ListarEquiposPeriodoUtilizable } from "./equipo.controllers";
 
 const cRouter = Router();
 
-cRouter.get('/equipos', ListarEquipos);
-cRouter.post('/equipos', AltaEquipo);
+cRouter.get('/equipo', ListarEquipos);
+cRouter.get('/equipo-periodoutilizable', ListarEquiposPeriodoUtilizable);
+cRouter.post('/equipo', AltaEquipo);
+cRouter.put('/equipo', EditarEquipo);
+cRouter.delete('/equipo', BajaEquipo);
 
 export default cRouter;
