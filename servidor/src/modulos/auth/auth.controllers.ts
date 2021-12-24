@@ -11,7 +11,7 @@ export async function Login(req: Request, res: Response) {
         const db = ClientDB('login_user');
 
         // Consulta
-        const cQuery: string = 'select id, nombrereal, nombreusuario, tipousuario from usuario where nombreusuario = $1 AND contrasenia = $2;';
+        const cQuery: string = 'SELECT id, nombrereal, nombreusuario, tipousuario FROM usuario WHERE nombreusuario = $1 AND contrasenia = $2;';
         const cParams: string[] = [ req.body.name, req.body.password ];
 
         let mDbResponse: QueryResult<AuthenticatedUser> = await db.query( cQuery, cParams );

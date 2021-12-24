@@ -8,18 +8,21 @@ import connectPgSimple from "connect-pg-simple";
 // Importo conexion BBDD
 import { ClientDB } from "./modulos/bbdd/db.connection";
 
-// Import funciones
+// Importo funciones
 import { Auth } from "./modulos/utils/utils";
 
-// Import rutas
+// Importo rutas
 import mEquipoRoutes from "./modulos/equipo/equipo.routes";
 import mAuthRoutes from "./modulos/auth/auth.routes";
+
 
 // Inicializaciones
 const app = express();
 
+
 // Configuraciones
 app.set('port', process.env.PORT || 3000);
+
 
 // Sesión
 const pgSession = connectPgSimple(session);
