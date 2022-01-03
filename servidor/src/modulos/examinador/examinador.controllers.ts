@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { QueryResult } from "pg";
 import { ClientDB } from "../bbdd/db.connection";
 import { SendError } from "../utils/utils";
-import { Examinador } from "../../modelos/examinador.mdel";
+import { Examinador } from "../../modelos/examinador.model";
 
 
 export async function ListarExaminadores(req: Request, res: Response) {
