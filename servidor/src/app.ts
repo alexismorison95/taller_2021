@@ -16,6 +16,7 @@ import mAuthRoutes from "./modulos/auth/auth.routes";
 import mEquipoRoutes from "./modulos/equipo/equipo.routes";
 import mConductorRoutes from "./modulos/conductor/conductor.routes";
 import mDominioRoutes from "./modulos/dominio/dominio.routes";
+import mExaminadorRoutes from "./modulos/examinador/examinador.routes";
 
 
 // Inicializaciones
@@ -52,6 +53,7 @@ app.use('/api/', mAuthRoutes);
 app.use('/api/', Auth, mEquipoRoutes);
 app.use('/api/', Auth, mConductorRoutes);
 app.use('/api/', Auth, mDominioRoutes);
+app.use('/api/', Auth, mExaminadorRoutes);
 
 
 export default app;
