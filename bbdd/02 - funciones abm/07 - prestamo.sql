@@ -9,8 +9,8 @@ CREATE OR REPLACE FUNCTION AltaPrestamo(
 $$
 DECLARE mId INT;
 BEGIN
-	INSERT INTO Prestamo(FechaPrestamo, HoraPrestamo, NroInicial, IdExaminador, IdEquipo) 
-	VALUES (pFechaPrestamo, pHoraPrestamo, pNroInicial, pIdExaminador, pIdEquipo) 
+	INSERT INTO Prestamo(Activo, FechaPrestamo, HoraPrestamo, NroInicial, IdExaminador, IdEquipo) 
+	VALUES (true, pFechaPrestamo, pHoraPrestamo, pNroInicial, pIdExaminador, pIdEquipo) 
 	RETURNING Id INTO mId;
 	
 	RETURN QUERY SELECT * FROM Prestamo WHERE Id = mId;
