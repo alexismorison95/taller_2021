@@ -8,8 +8,8 @@ CREATE OR REPLACE FUNCTION AltaPeriodoUtilizable(
 $$
 DECLARE mId INT;
 BEGIN
-	INSERT INTO PeriodoUtilizable(FechaInicio, FechaVencimiento, NroIngreso, IdEquipo) 
-	VALUES (pFechaInicio, pFechaVencimiento, pNroIngreso, pIdEquipo)
+	INSERT INTO PeriodoUtilizable(Activo, FechaInicio, FechaVencimiento, NroIngreso, IdEquipo) 
+	VALUES (true, pFechaInicio, pFechaVencimiento, pNroIngreso, pIdEquipo)
 	RETURNING Id INTO mId;
 	
 	RETURN QUERY SELECT * FROM PeriodoUtilizable WHERE Id = mId;
