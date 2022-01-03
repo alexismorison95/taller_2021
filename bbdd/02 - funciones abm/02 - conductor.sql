@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION AltaConductor(
 										pNombre VARCHAR, 
 										pApellido VARCHAR) RETURNS SETOF Conductor AS
 $$
-DECLARE mId INT;
+DECLARE mId VARCHAR;
 BEGIN
 	INSERT INTO Conductor(DNI, Nombre, Apellido) 
 	VALUES (pDNI, pNombre, pApellido) 
@@ -23,7 +23,7 @@ CREATE OR REPLACE FUNCTION ModificarConductor(
 											pNombre VARCHAR, 
 											pApellido VARCHAR) RETURNS SETOF Conductor AS
 $$
-DECLARE mId INT;
+DECLARE mId VARCHAR;
 BEGIN
 	UPDATE Conductor 
 	SET 
