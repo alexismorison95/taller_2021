@@ -30,7 +30,7 @@ CREATE TABLE Conductor (
 );
 
 CREATE TABLE Dominio (
-	Id VARCHAR PRIMARY KEY,
+	Patente VARCHAR PRIMARY KEY,
 	Descripcion VARCHAR NOT NULL
 );
 
@@ -83,7 +83,7 @@ CREATE TABLE Prueba (
 	DescripcionRechazo VARCHAR,
 	IdVerificador INT,
 	DNIConductor VARCHAR REFERENCES Conductor(DNI),
-	IdDominio VARCHAR REFERENCES Dominio(Id),
+	IdDominio VARCHAR REFERENCES Dominio(Patente),
 	IdPrestamo INT REFERENCES Prestamo(Id)
 );
 

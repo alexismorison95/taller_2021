@@ -1,16 +1,16 @@
 -- FUNCIONES DOMINIO
 
 CREATE OR REPLACE FUNCTION AltaDominio(
-										pId VARCHAR, 
+										pPatente VARCHAR, 
 										pDescripcion VARCHAR) RETURNS SETOF Dominio AS
 $$
-DECLARE mId INT;
+DECLARE mId VARCHAR;
 BEGIN
-	INSERT INTO Dominio(id, descripcion) 
-	VALUES (pId, pDescripcion) 
-	RETURNING Id INTO mId;
+	INSERT INTO Dominio(patente, descripcion) 
+	VALUES (pPatente, pDescripcion) 
+	RETURNING Patente INTO mId;
 	
-	RETURN QUERY SELECT * FROM Dominio WHERE Id = mId;
+	RETURN QUERY SELECT * FROM Dominio WHERE Patente = mId;
 END;
 $$
 LANGUAGE 'plpgsql';
@@ -18,19 +18,19 @@ LANGUAGE 'plpgsql';
 --------------------------
 
 CREATE OR REPLACE FUNCTION ModificarDominio(
-											pId VARCHAR, 
+											pPatente VARCHAR, 
 											pDescripcion VARCHAR) RETURNS SETOF Dominio AS
 $$
-DECLARE mId INT;
+DECLARE mId VARCHAR;
 BEGIN
 	UPDATE Dominio 
 	SET 
 		Descripcion = pDescripcion 
 	WHERE 
-		Id = pId
-	RETURNING Id INTO mId;	
+		Patente = pPatente
+	RETURNING Patente INTO mId;	
 	
-	RETURN QUERY SELECT * FROM Dominio WHERE Id = mId;
+	RETURN QUERY SELECT * FROM Dominio WHERE Patente = mId;
 END;
 $$
 LANGUAGE 'plpgsql';
