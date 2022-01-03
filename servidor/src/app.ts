@@ -12,9 +12,10 @@ import { ClientDB } from "./modulos/bbdd/db.connection";
 import { Auth } from "./modulos/utils/utils";
 
 // Importo rutas
+import mAuthRoutes from "./modulos/auth/auth.routes";
 import mEquipoRoutes from "./modulos/equipo/equipo.routes";
 import mConductorRoutes from "./modulos/conductor/conductor.routes";
-import mAuthRoutes from "./modulos/auth/auth.routes";
+import mDominioRoutes from "./modulos/dominio/dominio.routes";
 
 
 // Inicializaciones
@@ -50,6 +51,7 @@ app.use(cSession);
 app.use('/api/', mAuthRoutes);
 app.use('/api/', Auth, mEquipoRoutes);
 app.use('/api/', Auth, mConductorRoutes);
+app.use('/api/', Auth, mDominioRoutes);
 
 
 export default app;
