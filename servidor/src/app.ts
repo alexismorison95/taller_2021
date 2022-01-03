@@ -13,6 +13,7 @@ import { Auth } from "./modulos/utils/utils";
 
 // Importo rutas
 import mEquipoRoutes from "./modulos/equipo/equipo.routes";
+import mConductorRoutes from "./modulos/conductor/conductor.routes";
 import mAuthRoutes from "./modulos/auth/auth.routes";
 
 
@@ -48,6 +49,7 @@ app.use(cSession);
 // Rutas
 app.use('/api/', mAuthRoutes);
 app.use('/api/', Auth, mEquipoRoutes);
+app.use('/api/', Auth, mConductorRoutes);
 
 
 export default app;
