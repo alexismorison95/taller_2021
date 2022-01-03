@@ -2,7 +2,9 @@
 
 Trabajo final para la materia Taller de Integración de la carrera Análisis de Sistemas de UADER FCyT.
 
-    Sistema de alcoholemia para los controles por parte del personal de una municipalidad para dar soporte a los test hechos por los examinadores, digitalizando la información, pudiendo realzar reportes sobre los datos cargados.
+    Sistema de alcoholemia para los controles por parte del personal de una 
+    municipalidad para dar soporte a los test hechos por los examinadores, 
+    digitalizando la información, pudiendo realzar reportes sobre los datos cargados.
 
 ## Partes
 
