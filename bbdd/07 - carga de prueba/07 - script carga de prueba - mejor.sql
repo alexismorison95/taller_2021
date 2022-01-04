@@ -244,12 +244,12 @@ insert into dominio (patente, descripcion) values ('KL4CJASB5EB594685', 'Mazda M
 
 -- EXAMINADOR
  
-insert into examinador (nombrereal, activo, idusuario) values ('Marc Heinig', true, 6);
-insert into examinador (nombrereal, activo, idusuario) values ('Jodee Jacquemet', true, 7);
-insert into examinador (nombrereal, activo, idusuario) values ('Em Duddell', true, 8);
-insert into examinador (nombrereal, activo, idusuario) values ('Corinna Lewcock', true, 9);
-insert into examinador (nombrereal, activo, idusuario) values ('Fairlie Prinnett', true, 10);
-insert into examinador (nombrereal, activo, idusuario) values ('Hale Fehner', true, 11);
+-- insert into examinador (nombrereal, activo, idusuario) values ('Marc Heinig', true, 6);
+-- insert into examinador (nombrereal, activo, idusuario) values ('Jodee Jacquemet', true, 7);
+-- insert into examinador (nombrereal, activo, idusuario) values ('Em Duddell', true, 8);
+-- insert into examinador (nombrereal, activo, idusuario) values ('Corinna Lewcock', true, 9);
+-- insert into examinador (nombrereal, activo, idusuario) values ('Fairlie Prinnett', true, 10);
+-- insert into examinador (nombrereal, activo, idusuario) values ('Hale Fehner', true, 11);
 
 
 -- EQUIPO

@@ -80,8 +80,8 @@ $$
 BEGIN
 	IF NEW.TipoUsuario = 'examinador' THEN
 		
-		INSERT INTO Examinador(NombreReal, IdUsuario) 
-		VALUES (NEW.NombreReal, NEW.Id);
+		INSERT INTO Examinador(NombreReal, Activo, IdUsuario) 
+		VALUES (NEW.NombreReal, true, NEW.Id);
 		
 	END IF;
 
@@ -102,8 +102,8 @@ $$
 BEGIN
 	IF NEW.TipoUsuario = 'examinador' THEN
 		
-		INSERT INTO Examinador(NombreReal, IdUsuario) 
-		VALUES (NEW.NombreReal, NEW.Id);
+		INSERT INTO Examinador(NombreReal, Activo, IdUsuario) 
+		VALUES (NEW.NombreReal, true, NEW.Id);
 		
 	END IF;
 
