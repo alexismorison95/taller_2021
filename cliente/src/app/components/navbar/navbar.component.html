@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+    <span>My App</span>
+
+    <span class="menu-spacer"></span>
+
+    <button mat-button [routerLink]="[ '/inicio' ]" routerLinkActive="active">Inicio</button>
+    <button mat-button >Usuarios</button>
+    <button mat-button [routerLink]="[ '/equipos' ]" routerLinkActive="active">Equipos</button>
+    <button mat-button>Pruebas</button>
+    <button mat-button>Reportes</button>
+
+    <span class="spacer"></span>
+
+    <button mat-button matTooltip="Mi Cuenta">
+        Alexis Morisón
+    </button>
+</mat-toolbar>
