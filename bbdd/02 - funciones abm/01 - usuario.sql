@@ -44,7 +44,7 @@ CREATE OR REPLACE FUNCTION ModificarUsuario(
 	pNombreReal VARCHAR, 
 	pNombreUsuario VARCHAR, 
 	pContrasenia VARCHAR, 
-	pTipoUsuario INT
+	pTipoUsuario VARCHAR
 ) 
 RETURNS SETOF Usuario AS
 $$
