@@ -1,10 +1,12 @@
 -- FUNCIONES PeriodoUtilizable. FALTA MODIFICACION
 
 CREATE OR REPLACE FUNCTION AltaPeriodoUtilizable(
-												pFechaInicio DATE, 
-												pFechaVencimiento DATE, 
-												pNroIngreso INT, 
-												pIdEquipo INT) RETURNS SETOF PeriodoUtilizable AS
+	pFechaInicio DATE, 
+	pFechaVencimiento DATE, 
+	pNroIngreso INT, 
+	pIdEquipo INT
+) 
+RETURNS SETOF PeriodoUtilizable AS
 $$
 DECLARE mId INT;
 BEGIN

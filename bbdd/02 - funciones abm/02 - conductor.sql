@@ -1,9 +1,11 @@
 -- FUNCIONES CONDUCTOR
 
 CREATE OR REPLACE FUNCTION AltaConductor(
-										pDNI VARCHAR, 
-										pNombre VARCHAR, 
-										pApellido VARCHAR) RETURNS SETOF Conductor AS
+	pDNI VARCHAR, 
+	pNombre VARCHAR, 
+	pApellido VARCHAR
+) 
+RETURNS SETOF Conductor AS
 $$
 DECLARE mId VARCHAR;
 BEGIN
@@ -19,9 +21,11 @@ LANGUAGE 'plpgsql';
 ----------------------------
 
 CREATE OR REPLACE FUNCTION ModificarConductor(
-											pDNI VARCHAR, 
-											pNombre VARCHAR, 
-											pApellido VARCHAR) RETURNS SETOF Conductor AS
+	pDNI VARCHAR, 
+	pNombre VARCHAR, 
+	pApellido VARCHAR
+) 
+RETURNS SETOF Conductor AS
 $$
 DECLARE mId VARCHAR;
 BEGIN

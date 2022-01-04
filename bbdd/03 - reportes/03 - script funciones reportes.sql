@@ -93,11 +93,14 @@ RETURNS TABLE (
 	Resultado 			FLOAT,
 	NroActa 			INT,
 	NroRetencion 		INT,
+	Verificado			BOOLEAN,
+	Rechazado			BOOLEAN,
+	DescripcionRechazo  VARCHAR,
 	NombreExaminador 	VARCHAR,
 	Patente 			VARCHAR,
 	Descripcion 		VARCHAR,
 	DNI 				VARCHAR,
-	NombreConductor 	VARCHAR
+	NombreConductor 	TEXT
 ) AS
 $$
 BEGIN
@@ -109,6 +112,9 @@ BEGIN
 		P.Resultado,
 		P.NroActa,
 		P.NroRetencion,
+		P.Verificado,
+		P.Rechazado,
+		P.DescripcionRechazo,
 		E.NombreReal AS NombreExaminador,
 		D.Patente,
 		D.Descripcion,
@@ -118,7 +124,7 @@ BEGIN
 	INNER JOIN Prestamo PO
 		ON PO.Id = P.IdPrestamo
 	INNER JOIN Examinador E
-		ON E.Id = PO.IdExminador
+		ON E.Id = PO.IdExaminador
 	INNER JOIN Dominio D
 		ON D.Patente = P.IDDominio
 	INNER JOIN Conductor C

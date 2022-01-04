@@ -1,10 +1,12 @@
 -- FUNCIONES USUARIO
 
 CREATE OR REPLACE FUNCTION AltaUsuario(
-										pNombreReal VARCHAR, 
-										pNombreUsuario VARCHAR, 
-										pContrasenia VARCHAR, 
-										pTipoUsuario VARCHAR) RETURNS SETOF Usuario AS
+	pNombreReal VARCHAR, 
+	pNombreUsuario VARCHAR, 
+	pContrasenia VARCHAR, 
+	pTipoUsuario VARCHAR
+) 
+RETURNS SETOF Usuario AS
 $$
 DECLARE mId INT;
 BEGIN
@@ -19,7 +21,8 @@ LANGUAGE 'plpgsql';
 
 --------------------------
 
-CREATE OR REPLACE FUNCTION BajaUsuario(pId INT) RETURNS SETOF Usuario AS
+CREATE OR REPLACE FUNCTION BajaUsuario(pId INT) 
+RETURNS SETOF Usuario AS
 $$
 DECLARE mUsuario Usuario;
 BEGIN
@@ -37,11 +40,13 @@ LANGUAGE 'plpgsql';
 --------------------------
 
 CREATE OR REPLACE FUNCTION ModificarUsuario(
-											pId INT, 
-											pNombreReal VARCHAR, 
-											pNombreUsuario VARCHAR, 
-											pContrasenia VARCHAR, 
-											pTipoUsuario INT) RETURNS SETOF Usuario AS
+	pId INT, 
+	pNombreReal VARCHAR, 
+	pNombreUsuario VARCHAR, 
+	pContrasenia VARCHAR, 
+	pTipoUsuario INT
+) 
+RETURNS SETOF Usuario AS
 $$
 DECLARE mId INT;
 BEGIN

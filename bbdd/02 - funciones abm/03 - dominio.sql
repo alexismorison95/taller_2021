@@ -1,8 +1,10 @@
 -- FUNCIONES DOMINIO
 
 CREATE OR REPLACE FUNCTION AltaDominio(
-										pPatente VARCHAR, 
-										pDescripcion VARCHAR) RETURNS SETOF Dominio AS
+	pPatente VARCHAR, 
+	pDescripcion VARCHAR
+) 
+RETURNS SETOF Dominio AS
 $$
 DECLARE mId VARCHAR;
 BEGIN
@@ -18,8 +20,10 @@ LANGUAGE 'plpgsql';
 --------------------------
 
 CREATE OR REPLACE FUNCTION ModificarDominio(
-											pPatente VARCHAR, 
-											pDescripcion VARCHAR) RETURNS SETOF Dominio AS
+	pPatente VARCHAR, 
+	pDescripcion VARCHAR
+) 
+RETURNS SETOF Dominio AS
 $$
 DECLARE mId VARCHAR;
 BEGIN

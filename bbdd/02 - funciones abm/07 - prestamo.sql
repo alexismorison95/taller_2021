@@ -1,11 +1,13 @@
 -- FUNCIONES Prestamo
 
 CREATE OR REPLACE FUNCTION AltaPrestamo(
-										pFechaPrestamo DATE, 
-										pHoraPrestamo TIME, 
-										pNroInicial INT, 
-										pIdExaminador INT, 
-										pIdEquipo INT) RETURNS SETOF Prestamo AS
+	pFechaPrestamo DATE, 
+	pHoraPrestamo TIME, 
+	pNroInicial INT, 
+	pIdExaminador INT, 
+	pIdEquipo INT
+) 
+RETURNS SETOF Prestamo AS
 $$
 DECLARE mId INT;
 BEGIN
@@ -21,10 +23,12 @@ LANGUAGE 'plpgsql';
 --------------------------
 
 CREATE OR REPLACE FUNCTION BajaPrestamo(
-										pIdPrestamo INT, 
-										pFechaDevolucion DATE, 
-										pHoraDevolucion TIME, 
-										pNroDevolucion INT) RETURNS SETOF Prestamo AS
+	pIdPrestamo INT, 
+	pFechaDevolucion DATE, 
+	pHoraDevolucion TIME, 
+	pNroDevolucion INT
+) 
+RETURNS SETOF Prestamo AS
 $$
 DECLARE mId INT;
 BEGIN

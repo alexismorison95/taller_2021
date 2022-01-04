@@ -1,15 +1,17 @@
 -- FUNCIONES Prueba
 
 CREATE OR REPLACE FUNCTION AltaPrueba(
-									pFecha DATE, 
-									pHora TIME, 
-									pNroMuestra INT, 
-									pResultado FLOAT, 
-									pNroActa INT, 
-									pNroRetencion INT, 
-									pDNIConductor VARCHAR, 
-									pIdDominio VARCHAR, 
-									pIdPrestamo INT) RETURNS SETOF Prueba AS
+	pFecha DATE, 
+	pHora TIME, 
+	pNroMuestra INT, 
+	pResultado FLOAT, 
+	pNroActa INT, 
+	pNroRetencion INT, 
+	pDNIConductor VARCHAR, 
+	pIdDominio VARCHAR, 
+	pIdPrestamo INT
+) 
+RETURNS SETOF Prueba AS
 $$
 DECLARE mId INT;
 BEGIN
@@ -25,9 +27,12 @@ LANGUAGE 'plpgsql';
 --------------------------
 
 CREATE OR REPLACE FUNCTION ModificarPrueba(
-											pId INT, 
-											pRechazado BOOLEAN, 
-											pDescripcionRechazo VARCHAR) RETURNS SETOF Prueba AS
+	pId INT, 
+	pRechazado BOOLEAN, 
+	pDescripcionRechazo VARCHAR,
+	pIdVerificador INT
+) 
+RETURNS SETOF Prueba AS
 $$
 DECLARE mId INT;
 BEGIN
@@ -35,7 +40,8 @@ BEGIN
 	SET 
 		Verificado = true, 
 		Rechazado = pRechazado, 
-		DescripcionRechazo = pDescripcionRechazo 
+		DescripcionRechazo = pDescripcionRechazo,
+		IdVerificador = pIdVerificador
 	WHERE 
 		Id = pId
 	RETURNING Id INTO mId;

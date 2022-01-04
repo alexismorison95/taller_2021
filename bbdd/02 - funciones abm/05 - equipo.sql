@@ -34,8 +34,10 @@ LANGUAGE 'plpgsql';
 -------------------------
 
 CREATE OR REPLACE FUNCTION ModificarEquipo(
-											pId INT, 
-											pNombre varchar) RETURNS SETOF Equipo AS
+	pId INT, 
+	pNombre varchar
+) 
+RETURNS SETOF Equipo AS
 $$
 DECLARE mId INT;
 BEGIN
