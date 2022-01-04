@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { QueryResult } from "pg";
-import { AuthenticatedUser } from "../../modelos/auth.model";
+import { AuthenticatedUser } from "../../modelos/usuario.model";
 import { ClientDB } from "../bbdd/db.connection";
 import { SendError } from "../utils/utils";
 

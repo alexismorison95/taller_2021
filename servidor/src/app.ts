@@ -20,6 +20,7 @@ import mExaminadorRoutes        from "./modulos/examinador/examinador.routes";
 import mPeriodoUtilizableRoutes from "./modulos/periodo utilizable/periodoUtilizable.routes";
 import mPrestamoRoutes          from "./modulos/prestamo/prestamo.routes";
 import mPruebaRoutes            from "./modulos/prueba/prueba.routes";
+import mUsuarioRoutes            from "./modulos/usuario/usuario.routes";
 
 
 // Inicializaciones
@@ -61,6 +62,7 @@ app.use('/api/', Auth, mExaminadorRoutes);
 app.use('/api/', Auth, mPeriodoUtilizableRoutes);
 app.use('/api/', Auth, mPrestamoRoutes);
 app.use('/api/', Auth, mPruebaRoutes);
+app.use('/api/', Auth, mUsuarioRoutes);
 
 
 export default app;
