@@ -12,7 +12,7 @@ export async function Login(req: Request, res: Response) {
 
         // Consulta
         const cQuery: string = 'SELECT id, nombrereal, nombreusuario, tipousuario FROM usuario WHERE nombreusuario = $1 AND contrasenia = $2;';
-        const cParams: string[] = [ req.body.name, req.body.password ];
+        const cParams: string[] = [ req.body.userName, req.body.password ];
 
         let mDbResponse: QueryResult<AuthenticatedUser> = await db.query( cQuery, cParams );
 
@@ -30,7 +30,7 @@ export async function Login(req: Request, res: Response) {
         }
         else {
             // Envio al cliente que el usuario o contraseña no correpsonden
-            res.status(404).json({res: "Usuario o contraseña no válidos."});
+            res.status(403).json({err: "Usuario o contraseña no válidos."});
         }
     }
     catch (e) {
