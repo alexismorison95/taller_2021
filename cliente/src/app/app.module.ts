@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MaterialModule } from "./shared/modules/material.module";
 
@@ -24,7 +25,8 @@ import { InicioComponent } from './components/inicio/inicio.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    EquipoModule
+    EquipoModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

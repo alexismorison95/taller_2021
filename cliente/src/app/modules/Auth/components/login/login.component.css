@@ -1,0 +1,14 @@
+.container {
+    margin-top: 200px;
+    text-align: center;
+    height: 100%;
+    vertical-align: middle;
+}
+
+mat-form-field {
+    width: 300px;
+}
+
+.btn-login {
+    min-width: 300px;
+}

@@ -4,8 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './components/inicio/inicio.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'inicio', component: InicioComponent },
+  {
+    path: 'login',
+    loadChildren: () => import('./modules/Auth/auth.module').then(m => m.AuthModule)
+  },
   {
     path: 'equipos',
     loadChildren: () => import('./modules/equipo/equipo.module').then(m => m.EquipoModule)

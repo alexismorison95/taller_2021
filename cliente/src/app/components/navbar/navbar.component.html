@@ -1,4 +1,7 @@
-<mat-toolbar color="primary">
+<mat-toolbar 
+    color="primary"
+    *ngIf="authService.isLogged">
+    
     <span>My App</span>
 
     <span class="menu-spacer"></span>
