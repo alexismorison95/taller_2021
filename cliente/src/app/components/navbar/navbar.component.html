@@ -1,6 +1,6 @@
 <mat-toolbar 
     color="primary"
-    *ngIf="authService.isLogged">
+    *ngIf="authService.getIsLogged()">
     
     <span>My App</span>
 
@@ -14,7 +14,10 @@
 
     <span class="spacer"></span>
 
-    <button mat-button matTooltip="Mi Cuenta">
-        Alexis Morisón
+    <button 
+        mat-button 
+        matTooltip="Mi Cuenta"
+        (click)="logout()">
+        {{ authService.getUserLogged().nombrereal }}
     </button>
 </mat-toolbar>

@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    console.log(this.authService.getIsLogged());
+    
     this.buildForm();
   }
 
@@ -33,17 +34,11 @@ export class LoginComponent implements OnInit {
 
   iniciarSesion() {
 
-    this.authService.login(this.form.value).subscribe(
-
-      (res: any) => {
+    this.authService.login(this.form.value).subscribe((res: any) => {
 
         console.log(res);
         this.router.navigate(['/inicio']);
-      },
-      err => {
-
-        console.log(err);
-    });
+      });
   }
 
 }

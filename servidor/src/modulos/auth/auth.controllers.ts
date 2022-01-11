@@ -30,7 +30,7 @@ export async function Login(req: Request, res: Response) {
         }
         else {
             // Envio al cliente que el usuario o contraseña no correpsonden
-            res.status(403).json({err: "Usuario o contraseña no válidos."});
+            res.status(403).json({ err: "Usuario o contraseña no válidos." });
         }
     }
     catch (e) {
@@ -41,13 +41,13 @@ export async function Login(req: Request, res: Response) {
 export function Logout(req: Request, res: Response) {
 
     // Destruyo la sesión actual
-    req.session.destroy(err => {
+    req.session.destroy(error => {
 
-        if (err) { 
-            console.log(err); 
-            res.status(500).json({res: "Error interno del servidor." + err});
+        if (error) { 
+            console.log(error); 
+            res.status(500).json({ err: "Error interno del servidor." + error });
         }
     });
 
-    res.status(200).json({res: "Sesión cerrada"});
+    res.status(200).json({ res: "Sesión cerrada" });
 }
