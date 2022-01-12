@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Equipo, EquipoPeriodoUtilizable, NuevoEquipo } from '../models/equipo';
+import { EditarEquipo, Equipo, EquipoPeriodoUtilizable, NuevoEquipo } from '../models/equipo';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class EquipoService {
 
   constructor(private http: HttpClient) { }
 
-  GetEquipos(): Observable<EquipoPeriodoUtilizable[]> {
+  getEquipos(): Observable<EquipoPeriodoUtilizable[]> {
 
     return this.http.get<EquipoPeriodoUtilizable[]>(
       this.URL_API + '-periodoutilizable', 
@@ -36,8 +36,18 @@ export class EquipoService {
       }));
   }
 
-  AgregarEquipo(pEquipo: NuevoEquipo): Observable<Equipo> {
+  agregarEquipo(pEquipo: NuevoEquipo): Observable<Equipo> {
 
     return this.http.post<Equipo>(this.URL_API, pEquipo, { withCredentials: true });
+  }
+
+  editarEquipo(pEquipo: EditarEquipo): Observable<Equipo> {
+
+    return this.http.put<Equipo>(this.URL_API, pEquipo, { withCredentials: true });
+  }
+
+  bajaEquipo(pId: number): Observable<Equipo> {
+
+    return this.http.delete<Equipo>(this.URL_API + '/' + pId, { withCredentials: true });
   }
 }

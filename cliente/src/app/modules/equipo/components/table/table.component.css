@@ -1,5 +1,5 @@
 table {
-    width: 90%;
+    width: 100%;
 }
 
 mat-row:hover {
@@ -28,9 +28,7 @@ mat-cell {
     flex: 1 1 auto;
 }
 
-.btn-editar {
-    margin-right: 1rem;
-}
+
 
 .toolbar-bottom {
     background-color: white;

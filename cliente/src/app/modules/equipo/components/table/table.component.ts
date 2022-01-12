@@ -15,7 +15,7 @@ export class TableComponent implements OnInit, OnChanges {
 
   @Output() nuevoEquipoEvent: EventEmitter<any> = new EventEmitter();
   @Output() editarEquipoEvent: EventEmitter<EquipoPeriodoUtilizable> = new EventEmitter();
-  @Output() eliminarEquipoEvent: EventEmitter<EquipoPeriodoUtilizable> = new EventEmitter();
+  @Output() bajaEquipoEvent: EventEmitter<EquipoPeriodoUtilizable> = new EventEmitter();
 
   dataSource: MatTableDataSource<EquipoPeriodoUtilizable>;
   displayedColumns: string[] = [];
@@ -42,7 +42,7 @@ export class TableComponent implements OnInit, OnChanges {
     this.editarEquipoEvent.emit(pRow);
   }
 
-  eliminarEquipo(pRow: EquipoPeriodoUtilizable) {
-    this.eliminarEquipoEvent.emit(pRow);
+  bajaEquipo(pRow: EquipoPeriodoUtilizable) {
+    this.bajaEquipoEvent.emit(pRow);
   }
 }

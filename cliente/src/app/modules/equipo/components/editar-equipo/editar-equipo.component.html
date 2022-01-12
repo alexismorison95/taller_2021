@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Nuevo Equipo</h2>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <mat-form-field>
+            <input 
+                matInput 
+                cdkFocusInitial 
+                placeholder="Nombre de equipo" 
+                formControlName="nombre">
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+
+    <button 
+        [disabled]="form.invalid" 
+        mat-raised-button 
+        color="primary" 
+        (click)="editarEquipo()">
+        Guardar
+    </button>
+    <button 
+        mat-raised-button 
+        color="warn" 
+        mat-dialog-close>
+        Cancelar
+    </button>
+
+</div>

@@ -25,16 +25,18 @@
                 <ng-template #opciones>
                     <button 
                         mat-stroked-button 
-                        class="btn-editar"
+                        class="editar"
                         color="primary"
                         (click)="editarEquipo(row)">
                         Editar
                     </button>
+                    <div class="spacer"></div>
                     <button 
                         mat-stroked-button 
                         color="warn"
-                        (click)="eliminarEquipo(row)">
-                        Eliminar
+                        (click)="bajaEquipo(row)"
+                        [disabled]="!row.activo">
+                        Dar de baja
                     </button>
                 </ng-template>
             </mat-cell>

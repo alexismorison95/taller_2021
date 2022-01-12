@@ -12,6 +12,7 @@ import { EquipoNavbarComponent } from './components/equipo-navbar/equipo-navbar.
 import { EquipoComponent } from './equipo.component';
 import { TableComponent } from './components/table/table.component';
 import { NuevoEquipoComponent } from './components/nuevo-equipo/nuevo-equipo.component';
+import { EditarEquipoComponent } from './components/editar-equipo/editar-equipo.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { NuevoEquipoComponent } from './components/nuevo-equipo/nuevo-equipo.com
     PeriodoUtilizableComponent,
     EquipoNavbarComponent,
     TableComponent,
-    NuevoEquipoComponent
+    NuevoEquipoComponent,
+    EditarEquipoComponent
   ],
   imports: [
     CommonModule,

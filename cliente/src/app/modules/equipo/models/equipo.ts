@@ -19,3 +19,8 @@ export interface EquipoPeriodoUtilizable {
 export interface NuevoEquipo {
     nombre: string;
 }
+
+export interface EditarEquipo {
+    id: number;
+    nombre: string;
+}

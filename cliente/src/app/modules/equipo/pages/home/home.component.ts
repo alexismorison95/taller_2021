@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Column } from 'src/app/shared/models/column';
+import { EditarEquipoComponent } from '../../components/editar-equipo/editar-equipo.component';
 import { NuevoEquipoComponent } from '../../components/nuevo-equipo/nuevo-equipo.component';
-import { Equipo, EquipoPeriodoUtilizable, NuevoEquipo } from '../../models/equipo';
+import { EditarEquipo, Equipo, EquipoPeriodoUtilizable, NuevoEquipo } from '../../models/equipo';
 import { EquipoService } from '../../services/equipo.service';
 
 @Component({
@@ -38,7 +39,7 @@ export class HomeComponent implements OnInit {
 
   getEquipos() {
 
-    this.equipoService.GetEquipos().subscribe((response: EquipoPeriodoUtilizable[]) => {
+    this.equipoService.getEquipos().subscribe((response: EquipoPeriodoUtilizable[]) => {
 
       this.data = response;
     });
@@ -50,22 +51,39 @@ export class HomeComponent implements OnInit {
 
         if (nuevoEquipo && nuevoEquipo.nombre !== '') {
 
-          this.equipoService.AgregarEquipo(nuevoEquipo).subscribe((response: Equipo) => {
+          this.equipoService.agregarEquipo(nuevoEquipo).subscribe((response: Equipo) => {
 
             console.log(response);
             
             this.getEquipos();
-          })
+          });
         }
       });
   }
 
   editarEquipo(pEvent: EquipoPeriodoUtilizable) {
-    console.log(pEvent);
+    
+    this.dialog.open(EditarEquipoComponent, { data: pEvent })
+      .afterClosed().subscribe((equipo: EditarEquipo) => {
+
+        if (equipo && equipo.nombre !== '') {
+
+          this.equipoService.editarEquipo(equipo).subscribe((response: Equipo) => {
+
+            console.log(response);
+            
+            this.getEquipos();
+          });
+        }
+      });
   }
 
-  eliminarEquipo(pEvent: EquipoPeriodoUtilizable) {
-    console.log(pEvent);
+  bajaEquipo(pEvent: EquipoPeriodoUtilizable) {
+    
+    this.equipoService.bajaEquipo(pEvent.id).subscribe((response: Equipo) => {
+
+      console.log(response);
+    });
   }
 
 }
