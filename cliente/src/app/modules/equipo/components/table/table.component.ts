@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Column } from "src/app/shared/models/column";
-import { Equipo } from '../../models/equipo';
+import { EquipoPeriodoUtilizable } from '../../models/equipo';
 
 @Component({
   selector: 'equipo-table',
@@ -10,14 +10,14 @@ import { Equipo } from '../../models/equipo';
 })
 export class TableComponent implements OnInit, OnChanges {
 
-  @Input() pData?: Equipo[];
+  @Input() pData?: EquipoPeriodoUtilizable[];
   @Input() pColumns?: Column[];
 
   @Output() nuevoEquipoEvent: EventEmitter<any> = new EventEmitter();
-  @Output() editarEquipoEvent: EventEmitter<Equipo> = new EventEmitter();
-  @Output() eliminarEquipoEvent: EventEmitter<Equipo> = new EventEmitter();
+  @Output() editarEquipoEvent: EventEmitter<EquipoPeriodoUtilizable> = new EventEmitter();
+  @Output() eliminarEquipoEvent: EventEmitter<EquipoPeriodoUtilizable> = new EventEmitter();
 
-  dataSource: MatTableDataSource<Equipo> = new MatTableDataSource<Equipo>();
+  dataSource: MatTableDataSource<EquipoPeriodoUtilizable>;
   displayedColumns: string[] = [];
 
   constructor() { }
@@ -38,11 +38,11 @@ export class TableComponent implements OnInit, OnChanges {
     this.nuevoEquipoEvent.emit();
   }
 
-  editarEquipo(pRow: Equipo) {
+  editarEquipo(pRow: EquipoPeriodoUtilizable) {
     this.editarEquipoEvent.emit(pRow);
   }
 
-  eliminarEquipo(pRow: Equipo) {
+  eliminarEquipo(pRow: EquipoPeriodoUtilizable) {
     this.eliminarEquipoEvent.emit(pRow);
   }
 }

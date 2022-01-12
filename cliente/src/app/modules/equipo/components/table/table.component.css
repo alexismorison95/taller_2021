@@ -2,6 +2,10 @@ table {
     width: 90%;
 }
 
+mat-row:hover {
+    background: whitesmoke;
+}
+
 .mat-header-cell {
     font-size: medium !important;
     font-weight: 400 !important;
@@ -25,5 +29,10 @@ mat-cell {
 }
 
 .btn-editar {
-    margin-right: 10px;
+    margin-right: 1rem;
+}
+
+.toolbar-bottom {
+    background-color: white;
+    height: 3rem;
 }

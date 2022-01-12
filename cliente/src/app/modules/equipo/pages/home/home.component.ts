@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Column } from 'src/app/shared/models/column';
-import { Equipo } from '../../models/equipo';
+import { Equipo, EquipoPeriodoUtilizable } from '../../models/equipo';
 import { EquipoService } from '../../services/equipo.service';
 
 @Component({
@@ -16,11 +16,12 @@ export class HomeComponent implements OnInit {
     {field: 'nombre', title: 'Nombre'}, 
     {field: 'estado', title: 'Estado'}, 
     {field: 'nroactual', title: 'Número Actual'},
+    {field: 'fecha', title: 'Vencimiento'},
     {field: 'opciones', title: 'Opciones'}
   ];
 
   // Lista de equipos
-  data: Equipo[];
+  data: EquipoPeriodoUtilizable[];
 
   constructor(
     private router: Router,
@@ -34,7 +35,7 @@ export class HomeComponent implements OnInit {
 
   getEquipos() {
 
-    this.equipoService.GetEquipos().subscribe((response: Equipo[]) => {
+    this.equipoService.GetEquipos().subscribe((response: EquipoPeriodoUtilizable[]) => {
 
       this.data = response;
     });
@@ -44,11 +45,11 @@ export class HomeComponent implements OnInit {
     console.log('Agregar nuevo equipo');
   }
 
-  editarEquipo(pEvent: Equipo) {
+  editarEquipo(pEvent: EquipoPeriodoUtilizable) {
     console.log(pEvent);
   }
 
-  eliminarEquipo(pEvent: Equipo) {
+  eliminarEquipo(pEvent: EquipoPeriodoUtilizable) {
     console.log(pEvent);
   }
 

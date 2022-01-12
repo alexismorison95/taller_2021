@@ -1,8 +1,9 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Equipo } from '../models/equipo';
+import { Equipo, EquipoPeriodoUtilizable } from '../models/equipo';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +14,20 @@ export class EquipoService {
 
   constructor(private http: HttpClient) { }
 
-  GetEquipos(): Observable<Equipo[]> {
+  GetEquipos(): Observable<EquipoPeriodoUtilizable[]> {
 
-    return this.http.get<Equipo[]>(this.URL_API, { withCredentials: true })
+    return this.http.get<EquipoPeriodoUtilizable[]>(
+      this.URL_API + '-periodoutilizable', 
+      { withCredentials: true })
       .pipe(
-        // Mapeo para agregar el campo estado al objeto
-        map((equipos: Equipo[]) => {
+        // Mapeo para agregar los nuevos campos al objeto
+        map((equipos: EquipoPeriodoUtilizable[]) => {
 
-          equipos.map((equipo: Equipo) => {
+          equipos.map((equipo: EquipoPeriodoUtilizable) => {
 
             equipo.estado = equipo.activo ? 'Activo' : 'Inactivo';
+            equipo.fecha = formatDate(equipo.fechavencimiento.toString(), "dd/MM/yyyy", "en-US");
+            
             return equipo;
           });
       

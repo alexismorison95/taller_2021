@@ -4,7 +4,6 @@
         <span class="spacer"></span>
         <button 
             mat-stroked-button 
-            color="primary"
             (click)="nuevoEquipo()">
             Nuevo Equipo
         </button>
@@ -27,6 +26,7 @@
                     <button 
                         mat-stroked-button 
                         class="btn-editar"
+                        color="primary"
                         (click)="editarEquipo(row)">
                         Editar
                     </button>
@@ -44,4 +44,8 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
+
+    <mat-toolbar class="toolbar-bottom">
+    </mat-toolbar>
+
 </div>
