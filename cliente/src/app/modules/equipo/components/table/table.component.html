@@ -4,8 +4,8 @@
         <span class="spacer"></span>
         <button 
             mat-stroked-button 
-            (click)="nuevoEquipo()">
-            Nuevo Equipo
+            (click)="nuevo()">
+            {{ pNuevoText }}
         </button>
     </mat-toolbar>
 
@@ -27,14 +27,14 @@
                         mat-stroked-button 
                         class="editar"
                         color="primary"
-                        (click)="editarEquipo(row)">
+                        (click)="editar(row)">
                         Editar
                     </button>
                     <div class="spacer"></div>
                     <button 
                         mat-stroked-button 
                         color="warn"
-                        (click)="bajaEquipo(row)"
+                        (click)="baja(row)"
                         [disabled]="!row.activo">
                         Dar de baja
                     </button>

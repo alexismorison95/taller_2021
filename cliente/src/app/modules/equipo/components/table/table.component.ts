@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Column } from "src/app/shared/models/column";
-import { EquipoPeriodoUtilizable } from '../../models/equipo';
 
 @Component({
   selector: 'equipo-table',
@@ -10,14 +9,15 @@ import { EquipoPeriodoUtilizable } from '../../models/equipo';
 })
 export class TableComponent implements OnInit, OnChanges {
 
-  @Input() pData?: EquipoPeriodoUtilizable[];
+  @Input() pData?: any[];
   @Input() pColumns?: Column[];
+  @Input() pNuevoText?: string = '';
 
-  @Output() nuevoEquipoEvent: EventEmitter<any> = new EventEmitter();
-  @Output() editarEquipoEvent: EventEmitter<EquipoPeriodoUtilizable> = new EventEmitter();
-  @Output() bajaEquipoEvent: EventEmitter<EquipoPeriodoUtilizable> = new EventEmitter();
+  @Output() nuevoEvent: EventEmitter<any> = new EventEmitter();
+  @Output() editarEvent: EventEmitter<any> = new EventEmitter();
+  @Output() bajaEvent: EventEmitter<any> = new EventEmitter();
 
-  dataSource: MatTableDataSource<EquipoPeriodoUtilizable>;
+  dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = [];
 
   constructor() { }
@@ -34,15 +34,15 @@ export class TableComponent implements OnInit, OnChanges {
     });
   }
 
-  nuevoEquipo() {
-    this.nuevoEquipoEvent.emit();
+  nuevo() {
+    this.nuevoEvent.emit();
   }
 
-  editarEquipo(pRow: EquipoPeriodoUtilizable) {
-    this.editarEquipoEvent.emit(pRow);
+  editar(pRow: any) {
+    this.editarEvent.emit(pRow);
   }
 
-  bajaEquipo(pRow: EquipoPeriodoUtilizable) {
-    this.bajaEquipoEvent.emit(pRow);
+  baja(pRow: any) {
+    this.bajaEvent.emit(pRow);
   }
 }
