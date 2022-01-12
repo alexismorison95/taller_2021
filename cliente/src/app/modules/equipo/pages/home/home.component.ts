@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Column } from 'src/app/shared/models/column';
-import { Equipo, EquipoPeriodoUtilizable } from '../../models/equipo';
+import { NuevoEquipoComponent } from '../../components/nuevo-equipo/nuevo-equipo.component';
+import { Equipo, EquipoPeriodoUtilizable, NuevoEquipo } from '../../models/equipo';
 import { EquipoService } from '../../services/equipo.service';
 
 @Component({
@@ -25,7 +27,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private equipoService: EquipoService
+    private equipoService: EquipoService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +45,19 @@ export class HomeComponent implements OnInit {
   }
 
   nuevoEquipo() {
-    console.log('Agregar nuevo equipo');
+    this.dialog.open(NuevoEquipoComponent)
+      .afterClosed().subscribe((nuevoEquipo: NuevoEquipo) => {
+
+        if (nuevoEquipo && nuevoEquipo.nombre !== '') {
+
+          this.equipoService.AgregarEquipo(nuevoEquipo).subscribe((response: Equipo) => {
+
+            console.log(response);
+            
+            this.getEquipos();
+          })
+        }
+      });
   }
 
   editarEquipo(pEvent: EquipoPeriodoUtilizable) {

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Equipo, EquipoPeriodoUtilizable } from '../models/equipo';
+import { Equipo, EquipoPeriodoUtilizable, NuevoEquipo } from '../models/equipo';
 
 @Injectable({
   providedIn: 'root'
@@ -26,12 +26,18 @@ export class EquipoService {
           equipos.map((equipo: EquipoPeriodoUtilizable) => {
 
             equipo.estado = equipo.activo ? 'Activo' : 'Inactivo';
-            equipo.fecha = formatDate(equipo.fechavencimiento.toString(), "dd/MM/yyyy", "en-US");
+            equipo.fecha = equipo.fechavencimiento != null ? 
+              formatDate(equipo.fechavencimiento.toString(), "dd/MM/yyyy", "en-US") : '';
             
             return equipo;
           });
       
         return equipos;
       }));
+  }
+
+  AgregarEquipo(pEquipo: NuevoEquipo): Observable<Equipo> {
+
+    return this.http.post<Equipo>(this.URL_API, pEquipo, { withCredentials: true });
   }
 }

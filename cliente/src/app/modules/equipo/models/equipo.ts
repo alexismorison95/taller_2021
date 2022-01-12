@@ -12,6 +12,10 @@ export interface EquipoPeriodoUtilizable {
     activo: boolean;
     estado: string;
     nroactual: number;
-    fechavencimiento: Date;
+    fechavencimiento?: Date;
     fecha: string;
+}
+
+export interface NuevoEquipo {
+    nombre: string;
 }

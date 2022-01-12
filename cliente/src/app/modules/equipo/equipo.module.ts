@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { EquipoRoutingModule } from './equipo-routing.module';
 
 import { MaterialModule } from "../../shared/modules/material.module";
@@ -11,6 +11,7 @@ import { PeriodoUtilizableComponent } from './pages/periodo-utilizable/periodo-u
 import { EquipoNavbarComponent } from './components/equipo-navbar/equipo-navbar.component';
 import { EquipoComponent } from './equipo.component';
 import { TableComponent } from './components/table/table.component';
+import { NuevoEquipoComponent } from './components/nuevo-equipo/nuevo-equipo.component';
 
 
 @NgModule({
@@ -20,12 +21,14 @@ import { TableComponent } from './components/table/table.component';
     PrestamoComponent,
     PeriodoUtilizableComponent,
     EquipoNavbarComponent,
-    TableComponent
+    TableComponent,
+    NuevoEquipoComponent
   ],
   imports: [
     CommonModule,
     EquipoRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   bootstrap: [EquipoComponent]
 })
