@@ -9,8 +9,14 @@ import { AuthenticatedUser } from '../models/AuthenticatedUser';
 })
 export class AuthService {
 
-  private isLogged: boolean = false;
-  private userLogged: AuthenticatedUser = null;
+  private isLogged: boolean = true;
+ // private userLogged: AuthenticatedUser = null;
+  private userLogged: AuthenticatedUser = {
+    id: 1,
+    nombrereal: 'Admin',
+    nombreusuario: 'admin',
+    tipousuario: 'administrador'
+  };
   private readonly URL_API = 'http://localhost:3000/api/';
 
   constructor(private http: HttpClient) { }
