@@ -15,7 +15,7 @@ export class EditarEquipoComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<EditarEquipoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: EquipoPeriodoUtilizable,
+    @Inject(MAT_DIALOG_DATA) public data: EquipoPeriodoUtilizable
   ) { 
     this.buildForm();
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { DialogEliminarComponent } from 'src/app/components/dialog-eliminar/dialog-eliminar.component';
 import { Column } from 'src/app/shared/models/column';
 import { EditarEquipoComponent } from '../../components/editar-equipo/editar-equipo.component';
 import { NuevoEquipoComponent } from '../../components/nuevo-equipo/nuevo-equipo.component';
@@ -26,8 +27,9 @@ export class HomeComponent implements OnInit {
   // Lista de equipos
   data: EquipoPeriodoUtilizable[];
 
+  private dialogRef: MatDialogRef<any, any>;
+
   constructor(
-    private router: Router,
     private equipoService: EquipoService,
     public dialog: MatDialog
   ) { }
@@ -46,43 +48,54 @@ export class HomeComponent implements OnInit {
   }
 
   nuevoEquipo() {
-    this.dialog.open(NuevoEquipoComponent)
-      .afterClosed().subscribe((nuevoEquipo: NuevoEquipo) => {
 
-        if (nuevoEquipo && nuevoEquipo.nombre !== '') {
+    this.dialogRef = this.dialog.open(NuevoEquipoComponent);
 
-          this.equipoService.agregarEquipo(nuevoEquipo).subscribe((response: Equipo) => {
+    this.dialogRef.afterClosed().subscribe((nuevoEquipo: NuevoEquipo) => {
 
-            console.log(response);
-            
-            this.getEquipos();
-          });
-        }
-      });
+      if (nuevoEquipo && nuevoEquipo.nombre !== '') {
+
+        this.equipoService.agregarEquipo(nuevoEquipo).subscribe((response: Equipo) => {
+
+          console.log(response);
+          
+          this.getEquipos();
+        });
+      }
+    });
   }
 
   editarEquipo(pEvent: EquipoPeriodoUtilizable) {
     
-    this.dialog.open(EditarEquipoComponent, { data: pEvent })
-      .afterClosed().subscribe((equipo: EditarEquipo) => {
+    this.dialogRef = this.dialog.open(EditarEquipoComponent, { data: pEvent });
 
-        if (equipo && equipo.nombre !== '') {
+    this.dialogRef.afterClosed().subscribe((equipo: EditarEquipo) => {
 
-          this.equipoService.editarEquipo(equipo).subscribe((response: Equipo) => {
+      if (equipo && equipo.nombre !== '') {
 
-            console.log(response);
-            
-            this.getEquipos();
-          });
-        }
-      });
+        this.equipoService.editarEquipo(equipo).subscribe((response: Equipo) => {
+
+          console.log(response);
+          
+          this.getEquipos();
+        });
+      }
+    });
   }
 
   bajaEquipo(pEvent: EquipoPeriodoUtilizable) {
-    
-    this.equipoService.bajaEquipo(pEvent.id).subscribe((response: Equipo) => {
 
-      console.log(response);
+    this.dialogRef = this.dialog.open(DialogEliminarComponent, { data: 'Baja de Equipo' });
+
+    this.dialogRef.afterClosed().subscribe((dialogRes: boolean) => {
+
+      if (dialogRes) {
+        
+        this.equipoService.bajaEquipo(pEvent.id).subscribe((response: Equipo) => {
+
+          console.log(response);
+        });
+      }
     });
   }
 
