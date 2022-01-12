@@ -11,7 +11,10 @@ export async function ListarPeriodoUtilizables(req: Request, res: Response) {
         const db = ClientDB(req.session['rol']);
 
         // Consulta
-        const cQuery: string = 'SELECT * FROM periodoutilizable;';
+        const cQuery: string = 'SELECT pu.*, e.nombre ' +
+                                'FROM periodoutilizable pu ' +
+                                'INNER JOIN equipo  e ON e.id = pu.idequipo ' +
+                                'WHERE pu.activo = true;';
 
         let mDbResponse: QueryResult<PeriodoUtilizable> = await db.query( cQuery );
 

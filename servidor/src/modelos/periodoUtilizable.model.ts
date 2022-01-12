@@ -1,8 +1,9 @@
 export interface PeriodoUtilizable {
     id: number;
     activo: boolean;
-    fechaInicio: string;
-    fechaVencimiento: string;
-    ntoIngreso: number;
+    fechainicio: string;
+    fechavencimiento: string;
+    ntoingreso: number;
     idequipo: number;
+    nombre: string;
 }
