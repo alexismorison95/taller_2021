@@ -1,1 +1,10 @@
-<p>periodo-utilizable works!</p>
+<div class="container">
+    <equipo-table 
+        [pData]="data" 
+        [pColumns]="columns"
+        [pNuevoText]="'Nuevo Período Utilizable'"
+        (nuevoEvent)="nuevoPeriodo()"
+        (editarEvent)="editarPeriodo($event)"
+        (bajaEvent)="bajaPeriodo($event)">
+    </equipo-table>
+</div>

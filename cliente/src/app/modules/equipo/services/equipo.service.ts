@@ -37,17 +37,14 @@ export class EquipoService {
   }
 
   agregarEquipo(pEquipo: NuevoEquipo): Observable<Equipo> {
-
     return this.http.post<Equipo>(this.URL_API, pEquipo, { withCredentials: true });
   }
 
   editarEquipo(pEquipo: EditarEquipo): Observable<Equipo> {
-
     return this.http.put<Equipo>(this.URL_API, pEquipo, { withCredentials: true });
   }
 
   bajaEquipo(pId: number): Observable<Equipo> {
-
     return this.http.delete<Equipo>(this.URL_API + '/' + pId, { withCredentials: true });
   }
 }

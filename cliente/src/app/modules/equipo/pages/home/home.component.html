@@ -2,8 +2,9 @@
     <equipo-table 
         [pData]="data" 
         [pColumns]="columns"
-        (nuevoEquipoEvent)="nuevoEquipo()"
-        (editarEquipoEvent)="editarEquipo($event)"
-        (bajaEquipoEvent)="bajaEquipo($event)">
+        [pNuevoText]="'Nuevo Equipo'"
+        (nuevoEvent)="nuevoEquipo()"
+        (editarEvent)="editarEquipo($event)"
+        (bajaEvent)="bajaEquipo($event)">
     </equipo-table>
 </div>
