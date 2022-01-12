@@ -7,6 +7,6 @@ cRouter.get('/equipo', ListarEquipos);
 cRouter.get('/equipo-periodoutilizable', ListarEquiposPeriodoUtilizable);
 cRouter.post('/equipo', AltaEquipo);
 cRouter.put('/equipo', EditarEquipo);
-cRouter.delete('/equipo', BajaEquipo);
+cRouter.delete('/equipo/:id', BajaEquipo);
 
 export default cRouter;

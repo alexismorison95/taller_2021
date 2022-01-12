@@ -90,7 +90,7 @@ export async function BajaEquipo(req: Request, res: Response) {
         // Consulta
         const cQuery = 'SELECT * FROM BajaEquipo($1);';
         const cParams = [
-            req.body.id
+            req.params.id
         ];
 
         // Transacción
