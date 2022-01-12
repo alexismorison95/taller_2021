@@ -16,44 +16,28 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
+const materialModules = [
+    CommonModule, 
+    MatToolbarModule, 
+    MatIconModule, 
+    MatButtonModule, 
+    MatMenuModule, 
+    MatDividerModule, 
+    MatGridListModule, 
+    MatSnackBarModule, 
+    MatFormFieldModule, 
+    MatInputModule, 
+    MatTableModule, 
+    MatPaginatorModule, 
+    MatDialogModule, 
+    MatStepperModule, 
+    MatAutocompleteModule, 
+    MatDatepickerModule 
+];
 
 @NgModule({
 
-    imports: [ 
-        CommonModule, 
-        MatToolbarModule, 
-        MatIconModule, 
-        MatButtonModule, 
-        MatMenuModule, 
-        MatDividerModule, 
-        MatGridListModule, 
-        MatSnackBarModule, 
-        MatFormFieldModule, 
-        MatInputModule, 
-        MatTableModule, 
-        MatPaginatorModule, 
-        MatDialogModule, 
-        MatStepperModule, 
-        MatAutocompleteModule, 
-        MatDatepickerModule 
-    ],
-    exports: [ 
-        CommonModule, 
-        MatToolbarModule, 
-        MatIconModule, 
-        MatButtonModule, 
-        MatMenuModule, 
-        MatDividerModule, 
-        MatGridListModule, 
-        MatSnackBarModule, 
-        MatFormFieldModule, 
-        MatInputModule, 
-        MatTableModule, 
-        MatPaginatorModule, 
-        MatDialogModule, 
-        MatStepperModule, 
-        MatAutocompleteModule, 
-        MatDatepickerModule 
-    ]
+    imports: [ materialModules ],
+    exports: [ materialModules ]
 })
 export class MaterialModule {}
