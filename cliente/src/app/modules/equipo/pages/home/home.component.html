@@ -1,0 +1,9 @@
+<div class="container">
+    <equipo-table 
+        [pData]="data" 
+        [pColumns]="columns"
+        (nuevoEquipoEvent)="nuevoEquipo()"
+        (editarEquipoEvent)="editarEquipo($event)"
+        (eliminarEquipoEvent)="eliminarEquipo($event)">
+    </equipo-table>
+</div>

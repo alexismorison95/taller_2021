@@ -5,11 +5,12 @@ import { EquipoRoutingModule } from './equipo-routing.module';
 
 import { MaterialModule } from "../../shared/modules/material.module";
 
-import { HomeComponent } from './components/home/home.component';
-import { PrestamoComponent } from './components/prestamo/prestamo.component';
-import { PeriodoUtilizableComponent } from './components/periodo-utilizable/periodo-utilizable.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PrestamoComponent } from './pages/prestamo/prestamo.component';
+import { PeriodoUtilizableComponent } from './pages/periodo-utilizable/periodo-utilizable.component';
 import { EquipoNavbarComponent } from './components/equipo-navbar/equipo-navbar.component';
 import { EquipoComponent } from './equipo.component';
+import { TableComponent } from './components/table/table.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { EquipoComponent } from './equipo.component';
     HomeComponent,
     PrestamoComponent,
     PeriodoUtilizableComponent,
-    EquipoNavbarComponent
+    EquipoNavbarComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,

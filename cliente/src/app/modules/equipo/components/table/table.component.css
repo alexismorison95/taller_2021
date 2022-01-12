@@ -1,0 +1,29 @@
+table {
+    width: 90%;
+}
+
+.mat-header-cell {
+    font-size: medium !important;
+    font-weight: 400 !important;
+    display:  flex;
+    justify-content: center;
+}
+
+mat-cell {
+    justify-content: center;
+    font-size: small;
+}
+
+.toolbar {
+    background-color: white;
+    height: 3rem;
+    padding-top: 1rem;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.btn-editar {
+    margin-right: 10px;
+}
