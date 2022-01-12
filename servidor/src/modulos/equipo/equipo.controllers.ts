@@ -120,7 +120,7 @@ export async function ListarEquiposPeriodoUtilizable(req: Request, res: Response
         // Consulta
         const cQuery: string =  'SELECT E.*, PU.fechavencimiento ' + 
                                 'FROM equipo E ' +
-                                'JOIN periodoutilizable PU ' +
+                                'LEFT JOIN periodoutilizable PU ' +
                                 'ON E.id = PU.idequipo ' +
                                 'ORDER BY E.id;';
 
