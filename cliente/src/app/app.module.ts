@@ -13,12 +13,14 @@ import { EquipoModule } from "./modules/equipo/equipo.module";
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { InicioComponent } from './components/inicio/inicio.component';
+import { DialogEliminarComponent } from './components/dialog-eliminar/dialog-eliminar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    InicioComponent
+    InicioComponent,
+    DialogEliminarComponent
   ],
   imports: [
     BrowserModule,
